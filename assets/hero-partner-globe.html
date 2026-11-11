@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Avistar Partner Globe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: one isometric desk globe on a long base with a directory and certificate; the lens beam is the only colour */
+:root {
+  --paper: #F5F3F0; --white: #FFFFFF; --ink: #141414; --night: url(#avnight);
+  --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  
+}
+* { box-sizing: border-box; }
+html, body { background: transparent; color: var(--ink); }
+body {
+  margin: 0; min-height: 100%;
+  padding: 0;
+  display: flex; justify-content: center; align-items: center;
+}
+svg.hero { width: 100%; height: auto; max-width: 100%; display: block; overflow: visible; }
+.grid { display: none; }
+.f-white, .f-paper, .f-night { stroke: var(--ink); stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; }
+.f-white { fill: var(--white); } .f-paper { fill: var(--paper); } .f-night { fill: var(--night); }
+.ln { fill: none; stroke: var(--ink); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.back { fill: none; stroke: var(--ink); stroke-width: 1; opacity: .18; }
+.front { fill: none; stroke: var(--ink); stroke-width: 1.1; opacity: .75; }
+.sphere { fill: var(--white); stroke: var(--ink); stroke-width: 1.5; }
+.lbl { font-family: var(--mono); font-weight: 500; font-size: 9px; letter-spacing: 1.2px; fill: var(--ink); }
+.lbl.sm { font-size: 7px; letter-spacing: .6px; }
+.lbl.tiny { font-size: 5.4px; letter-spacing: .4px; }
+.mid { text-anchor: middle; }
+.stamp { fill: none; stroke: var(--ink); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+</style>
+</head>
+<body>
+<svg class="hero" id="svg" viewBox="-300 -330 600 480" role="img" aria-label="Isometric desk globe with partner pins, a partner directory, and a certified card. A lens beam lands on one partner pin, the pin lifts and the certificate is stamped, then the globe turns to the next pin.">
+  <defs><linearGradient id="avnight" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#FF4B1F"/><stop offset="1" stop-color="#1FDDFF"/></linearGradient>
+    <linearGradient id="bgr" gradientUnits="userSpaceOnUse" x1="0" y1="-300" x2="0" y2="-120"><stop offset="0" stop-color="#FF4B1F"/><stop offset="1" stop-color="#1FDDFF"/></linearGradient>
+    <filter id="stip" x="-20%" y="-20%" width="140%" height="140%"><feTurbulence type="fractalNoise" baseFrequency="1.2" numOctaves="2" seed="5" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -2 1.7" result="d"/><feComposite in="SourceGraphic" in2="d" operator="in"/></filter>
+    <radialGradient id="grm" cx="50%" cy="50%" r="55%"><stop offset="0" stop-color="#fff"/><stop offset=".7" stop-color="#fff" stop-opacity=".5"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+    <mask id="gridmask" maskContentUnits="objectBoundingBox"><rect width="1" height="1" fill="url(#grm)"/></mask>
+  </defs>
+  <g id="scene"></g>
+</svg>
+<script>
+(function () {
+  const reduce = matchMedia('not all').matches;
+  const NSV = 'http://www.w3.org/2000/svg';
+  const c = Math.cos(Math.PI / 6), S = 30;
+  const P = (x, y, z) => [(x - y) * c * S, ((x + y) * .5 - z) * S];
+  const pt = p => p[0].toFixed(1) + ',' + p[1].toFixed(1);
+  const poly = (l, cls) => `<polygon class="${cls}" points="${l.map(pt).join(' ')}"/>`;
+  const box = (x0, y0, z0, w, d, h, top = 'f-white', front = 'f-paper', right = 'f-night') => {
+    const x1 = x0 + w, y1 = y0 + d, z1 = z0 + h;
+    return poly([P(x1,y0,z0),P(x1,y1,z0),P(x1,y1,z1),P(x1,y0,z1)], right) + poly([P(x0,y1,z0),P(x1,y1,z0),P(x1,y1,z1),P(x0,y1,z1)], front) + poly([P(x0,y0,z1),P(x1,y0,z1),P(x1,y1,z1),P(x0,y1,z1)], top);
+  };
+  const mTop = (x, y, z) => { const [e, f] = P(x, y, z); return `matrix(${c},${.5},${-c},${.5},${e.toFixed(2)},${f.toFixed(2)})`; };
+  const mFront = (x, y, z) => { const [e, f] = P(x, y, z); return `matrix(${c},${.5},0,1,${e.toFixed(2)},${f.toFixed(2)})`; };
+  const bez = (p1x, p1y, p2x, p2y) => t => { // solve x for t
+    let lo = 0, hi = 1;
+    for (let i = 0; i < 30; i++) { const m = (lo + hi) / 2, x = 3*(1-m)**2*m*p1x + 3*(1-m)*m*m*p2x + m**3; if (x < t) lo = m; else hi = m; }
+    const m = (lo + hi) / 2; return 3*(1-m)**2*m*p1y + 3*(1-m)*m*m*p2y + m**3;
+  };
+  const spin = bez(.65, 0, .35, 1), arrive = bez(.22, 1, .36, 1);
+  const clamp01 = v => Math.max(0, Math.min(1, v));
+
+  // ---- static scene ----
+  const scene = document.getElementById('scene');
+  let g = '';
+  for (let i = -14; i <= 16; i++) { const a = P(i, -14, 0), b = P(i, 16, 0), d = P(-14, i, 0), e = P(16, i, 0); g += `M${pt(a)}L${pt(b)}M${pt(d)}L${pt(e)}`; }
+  let html = `<path class="grid" mask="url(#gridmask)" d="${g}"/>`;
+  // lens post and arm (behind globe)
+  const post = P(-2.8, 2.2, .6), postTop = P(-2.8, 2.2, 7.4), lensP = P(.4, .4, 7.4);
+  html += box(-3.4, -3.4, 0, 9.4, 6.4, .6);
+  html += `<path class="ln" d="M${pt(post)}L${pt(postTop)}M${pt(P(-2.8,2.2,7.4))}L${pt(P(.4,.4,7.4))}"/>`;
+  // globe stand
+  const Z0 = 3.2, R = 2.0, RS = R * S * Math.sqrt(1.5) / 1; // silhouette radius
+  const ctr = P(0, 0, Z0), stemB = P(0, 0, .6), stemT = P(0, 0, Z0 - R);
+  html += `<ellipse class="f-paper" cx="${stemB[0]}" cy="${stemB[1]}" rx="${.9*S*Math.sqrt(1.5)}" ry="${.9*S*.7071}"/><path class="ln" d="M${stemB[0]-3} ${stemB[1]}V${stemT[1]+4}M${stemB[0]+3} ${stemB[1]}V${stemT[1]+4}"/>`;
+  html += `<circle class="sphere" cx="${ctr[0]}" cy="${ctr[1]}" r="${(R*S*Math.sqrt(1.5)).toFixed(1)}"/><g id="gback"></g><g id="beam"></g><g id="gfront"></g><g id="pins"></g>`;
+  // directory (flip cards) on base
+  html += box(3.2, -2.6, .6, 2.2, 1.4, .5);
+  html += `<g transform="${mFront(3.4,-1.9,2.1)}"><rect x="0" y="0" width="${1.8*S}" height="${1.0*S}" rx="3" class="f-white"/><g id="flip" transform="translate(${.9*S},${.5*S})"><text class="lbl sm mid" id="flipt" y="2.5">PARTNER 01</text></g></g>`;
+  html += `<g transform="${mFront(3.2,-1.2,1.1)}"><text x="${1.1*S}" y="${.33*S}" class="lbl tiny mid">PARTNER DIRECTORY</text></g>`;
+  // certificate card standing at front right
+  html += box(1.2, 2.0, .6, 2.2, .14, 1.6, 'f-white', 'f-white');
+  html += `<g transform="${mFront(1.2,2.14,2.2)}"><text x="${1.1*S}" y="${.42*S}" class="lbl mid">CERTIFIED</text><path class="back" style="opacity:.5" d="M${.35*S} ${.62*S}H${1.85*S}M${.35*S} ${.8*S}H${1.4*S}"/>`
+       + `<g transform="translate(${1.65*S},${1.12*S})"><circle r="${.28*S}" class="f-paper"/><g id="stamp"><path class="stamp" d="M-5 0L-1.5 3.5L5.5 -4"/></g></g></g>`;
+  // lens
+  html += `<ellipse class="f-night" cx="${lensP[0]}" cy="${lensP[1]+3}" rx="12" ry="7"/><ellipse class="f-white" cx="${lensP[0]}" cy="${lensP[1]}" rx="12" ry="7"/>`;
+  scene.innerHTML = html;
+  const gback = document.getElementById('gback'), gfront = document.getElementById('gfront'), pinsG = document.getElementById('pins'), beamG = document.getElementById('beam');
+  const flip = document.getElementById('flip'), flipt = document.getElementById('flipt'), stamp = document.getElementById('stamp');
+
+  // ---- globe geometry ----
+  const V = [1, 1, 1].map(v => v / Math.sqrt(3));
+  const sp = (lat, lon) => [Math.cos(lat)*Math.cos(lon), Math.cos(lat)*Math.sin(lon), Math.sin(lat)];
+  const proj = n => P(n[0]*R, n[1]*R, Z0 + n[2]*R);
+  const vis = n => n[0]*V[0] + n[1]*V[1] + n[2]*V[2];
+  function curve(fn, N) { // returns [frontD, backD]
+    let f = '', b = '', pf = false, pb = false;
+    for (let i = 0; i <= N; i++) {
+      const n = fn(i / N), p = proj(n), front = vis(n) >= 0;
+      if (front) { f += (pf ? 'L' : 'M') + pt(p); pf = true; pb = false; }
+      else { b += (pb ? 'L' : 'M') + pt(p); pb = true; pf = false; }
+    }
+    return [f, b];
+  }
+  const LATS = [-60, -30, 0, 30, 60].map(d => d * Math.PI / 180);
+  const latPaths = LATS.map(lat => curve(t => sp(lat, t * 2 * Math.PI), 96));
+  const deg = Math.PI / 180;
+  const PINS = [];
+  for (let k = 0; k < 4; k++) PINS.push({ lat: 22 * deg, lon: (-45 + 90 * k) * deg, main: true });
+  for (let k = 0; k < 4; k++) PINS.push({ lat: -32 * deg, lon: (0 + 90 * k) * deg, main: false });
+  const pinBox = (x, y) => {
+    const w = 11, h = 9, d = 6;
+    return `<polygon class="f-night" points="${x+w/2},${y} ${x+w/2+d*c},${y-d*.5} ${x+w/2+d*c},${y-h-d*.5} ${x+w/2},${y-h}"/>`
+         + `<rect class="f-white" x="${x-w/2}" y="${y-h}" width="${w}" height="${h}" rx="2"/>`
+         + `<polygon class="f-white" points="${x-w/2},${y-h} ${x+w/2},${y-h} ${x+w/2+d*c},${y-h-d*.5} ${x-w/2+d*c},${y-h-d*.5}"/>`
+         + `<circle cx="${x}" cy="${y-h/2}" r="2" fill="#141414"/>`;
+  };
+
+  // ---- timeline ----
+  const LOOP = 8;
+  function render(time) {
+    const loop = Math.floor(time / LOOP), t = time - loop * LOOP;
+    const theta = (loop + spin(clamp01(t / 2.2))) * 90 * deg;
+    // meridians
+    let F = '', B = '';
+    latPaths.forEach(([f, b]) => { F += f; B += b; });
+    for (let m = 0; m < 6; m++) {
+      const lon = m * 30 * deg + theta;
+      const [f, b] = curve(s => sp(-Math.PI / 2 + s * Math.PI, lon), 64);
+      F += f; B += b;
+    }
+    gback.innerHTML = `<path class="back" d="${B}"/>`;
+    gfront.innerHTML = `<path class="front" d="${F}"/>`;
+    // pins
+    const beamOn = clamp01((t - 2.4) / .3) * (1 - clamp01((t - 6.8) / .4));
+    const lift = 8 * arrive(clamp01((t - 2.8) / .5)) * (1 - arrive(clamp01((t - 6.8) / .5)));
+    let ph = '', target = null;
+    PINS.map(p => ({ ...p, n: sp(p.lat, p.lon + theta) }))
+      .sort((a, b) => vis(a.n) - vis(b.n))
+      .forEach(p => {
+        if (vis(p.n) < .12) return;
+        let [x, y] = proj(p.n);
+        const isT = p.main && Math.abs(Math.atan2(p.n[1], p.n[0]) - 45 * deg) < .2 && t > 2.2;
+        if (isT) { y -= lift; target = [x, y]; }
+        ph += pinBox(x, y);
+      });
+    pinsG.innerHTML = ph;
+    // beam
+    if (target && beamOn > 0) {
+      const lx = lensP[0], ly = lensP[1] + 4, tx = target[0], ty = target[1] - 4;
+      beamG.innerHTML = `<g opacity="${beamOn.toFixed(2)}" filter="url(#stip)"><path fill="url(#bgr)" d="M${lx-9} ${ly}L${tx-16} ${ty}A16 8 0 0 0 ${tx+16} ${ty}L${lx+9} ${ly}Z"/><ellipse cx="${tx}" cy="${ty}" rx="16" ry="8" fill="url(#bgr)" opacity=".8"/></g>`;
+      document.querySelector('#bgr').setAttribute('y1', ly); document.querySelector('#bgr').setAttribute('y2', ty + 8);
+    } else beamG.innerHTML = '';
+    // directory: three flips per loop
+    const flips = [.5, .9, 1.3];
+    let idx = loop * 3, sy = 1;
+    flips.forEach(f => { if (t >= f + .1) idx++; const u = (t - f) / .2; if (u > 0 && u < 1) sy = Math.abs(Math.cos(u * Math.PI)); });
+    flipt.textContent = 'PARTNER ' + String(idx % 24 + 1).padStart(2, '0');
+    flip.setAttribute('transform', `translate(${.9*S},${.5*S}) scale(1,${sy.toFixed(3)})`);
+    // stamp
+    const sIn = arrive(clamp01((t - 3.4) / .35)), sOut = clamp01((t - 7.0) / .4);
+    stamp.setAttribute('transform', `scale(${(1.5 - .5 * sIn).toFixed(3)})`);
+    stamp.setAttribute('opacity', (sIn * (1 - sOut)).toFixed(2));
+  }
+  if (reduce) { render(4.5); return; }
+  const t0 = performance.now();
+  (function frame(now) { render((now - t0) / 1000); requestAnimationFrame(frame); })(t0);
+})();
+</script>
+</body>
+</html>

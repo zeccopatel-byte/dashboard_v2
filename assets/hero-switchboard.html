@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Avistar Switchboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: one isometric diagnostic switchboard on paper with a risk gauge above; the glow under the active switch is the only colour */
+:root {
+  --paper: #F5F3F0; --white: #FFFFFF; --ink: #141414; --night: url(#avnight);
+  --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  
+}
+* { box-sizing: border-box; }
+html, body { background: transparent; color: var(--ink); }
+body {
+  margin: 0; min-height: 100%;
+  padding: 0;
+  display: flex; justify-content: center; align-items: center;
+}
+svg.hero { width: 100%; height: auto; max-width: 100%; display: block; overflow: visible; }
+.grid { display: none; }
+.f-white, .f-paper, .f-night, .lamp { stroke: var(--ink); stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.f-white { fill: var(--white); } .f-paper, .lamp { fill: var(--paper); } .f-night { fill: var(--night); }
+.ink-line, .ic { fill: none; stroke: var(--ink); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.ic { stroke-width: 1.2; }
+.ink-thin { fill: none; stroke: var(--ink); stroke-width: 1; opacity: .45; vector-effect: non-scaling-stroke; }
+.needle-l { fill: none; stroke: var(--ink); stroke-width: 2; stroke-linecap: round; }
+.dot { fill: var(--ink); }
+.lbl { font-family: var(--mono); font-weight: 500; fill: var(--ink); }
+.lbl.row { font-size: .28px; letter-spacing: .08px; }
+.lbl.nm { font-size: .23px; letter-spacing: .03px; dominant-baseline: middle; }
+.lbl.sm { font-size: .2px; letter-spacing: .05px; text-anchor: middle; }
+.lbl.xs { font-size: .16px; letter-spacing: .06px; text-anchor: middle; opacity: .6; }
+/* resting state, also the reduced-motion state: every problem switched on, needle at HIGH, glow on the last switch */
+.offp { opacity: 0; }
+.lamp { fill: var(--night); }
+.needle { transform: rotate(65deg); }
+.glow { transform: translate(6px,2.95px); }
+@keyframes n0 {
+  0.000% { opacity:0; }
+  8.571% { opacity:1; }
+  68.571% { opacity:0; }
+  100.000% { opacity:0; }
+}
+@keyframes o0 {
+  0.000% { opacity:1; }
+  8.571% { opacity:0; }
+  68.571% { opacity:1; }
+  100.000% { opacity:1; }
+}
+@keyframes l0 {
+  0.000% { fill: var(--paper); }
+  8.571% { fill: var(--night); }
+  9.286% { fill: var(--paper); }
+  10.000% { fill: var(--night); }
+  68.571% { fill: var(--paper); }
+  100.000% { fill: var(--paper); }
+}
+.s0n { animation: n0 7s steps(1,end) infinite; } .s0o { animation: o0 7s steps(1,end) infinite; } .l0 { animation: l0 7s steps(1,end) infinite; }
+@keyframes n1 {
+  0.000% { opacity:0; }
+  10.286% { opacity:1; }
+  66.857% { opacity:0; }
+  100.000% { opacity:0; }
+}
+@keyframes o1 {
+  0.000% { opacity:1; }
+  10.286% { opacity:0; }
+  66.857% { opacity:1; }
+  100.000% { opacity:1; }
+}
+@keyframes l1 {
+  0.000% { fill: var(--paper); }
+  10.286% { fill: var(--night); }
+  11.000% { fill: var(--paper); }
+  11.714% { fill: var(--night); }
+  66.857% { fill: var(--paper); }
+  100.000% { fill: var(--paper); }
+}
+.s1n { animation: n1 7s steps(1,end) infinite; } .s1o { animation: o1 7s steps(1,end) infinite; } .l1 { animation: l1 7s steps(1,end) infinite; }
+@keyframes n2 {
+  0.000% { opacity:0; }
+  12.000% { opacity:1; }
+  65.143% { opacity:0; }
+  100.000% { opacity:0; }
+}
+@keyframes o2 {
+  0.000% { opacity:1; }
+  12.000% { opacity:0; }
+  65.143% { opacity:1; }
+  100.000% { opacity:1; }
+}
+@keyframes l2 {
+  0.000% { fill: var(--paper); }
+  12.000% { fill: var(--night); }
+  12.714% { fill: var(--paper); }
+  13.429% { fill: var(--night); }
+  65.143% { fill: var(--paper); }
+  100.000% { fill: var(--paper); }
+}
+.s2n { animation: n2 7s steps(1,end) infinite; } .s2o { animation: o2 7s steps(1,end) infinite; } .l2 { animation: l2 7s steps(1,end) infinite; }
+@keyframes n3 {
+  0.000% { opacity:0; }
+  13.714% { opacity:1; }
+  63.429% { opacity:0; }
+  100.000% { opacity:0; }
+}
+@keyframes o3 {
+  0.000% { opacity:1; }
+  13.714% { opacity:0; }
+  63.429% { opacity:1; }
+  100.000% { opacity:1; }
+}
+@keyframes l3 {
+  0.000% { fill: var(--paper); }
+  13.714% { fill: var(--night); }
+  14.429% { fill: var(--paper); }
+  15.143% { fill: var(--night); }
+  63.429% { fill: var(--paper); }
+  100.000% { fill: var(--paper); }
+}
+.s3n { animation: n3 7s steps(1,end) infinite; } .s3o { animation: o3 7s steps(1,end) infinite; } .l3 { animation: l3 7s steps(1,end) infinite; }
+@keyframes n4 {
+  0.000% { opacity:0; }
+  15.429% { opacity:1; }
+  61.714% { opacity:0; }
+  100.000% { opacity:0; }
+}
+@keyframes o4 {
+  0.000% { opacity:1; }
+  15.429% { opacity:0; }
+  61.714% { opacity:1; }
+  100.000% { opacity:1; }
+}
+@keyframes l4 {
+  0.000% { fill: var(--paper); }
+  15.429% { fill: var(--night); }
+  16.143% { fill: var(--paper); }
+  16.857% { fill: var(--night); }
+  61.714% { fill: var(--paper); }
+  100.000% { fill: var(--paper); }
+}
+.s4n { animation: n4 7s steps(1,end) infinite; } .s4o { animation: o4 7s steps(1,end) infinite; } .l4 { animation: l4 7s steps(1,end) infinite; }
+@keyframes n5 {
+  0.000% { opacity:0; }
+  17.143% { opacity:1; }
+  60.000% { opacity:0; }
+  100.000% { opacity:0; }
+}
+@keyframes o5 {
+  0.000% { opacity:1; }
+  17.143% { opacity:0; }
+  60.000% { opacity:1; }
+  100.000% { opacity:1; }
+}
+@keyframes l5 {
+  0.000% { fill: var(--paper); }
+  17.143% { fill: var(--night); }
+  17.857% { fill: var(--paper); }
+  18.571% { fill: var(--night); }
+  60.000% { fill: var(--paper); }
+  100.000% { fill: var(--paper); }
+}
+.s5n { animation: n5 7s steps(1,end) infinite; } .s5o { animation: o5 7s steps(1,end) infinite; } .l5 { animation: l5 7s steps(1,end) infinite; }
+@keyframes glow {
+  0.000% { transform: translate(0.0px,0.0px); opacity:0; }
+  8.286% { transform: translate(0.0px,0.0px); opacity:0; }
+  9.714% { transform: translate(0.0px,0.0px); opacity:1; }
+  10.143% { transform: translate(0.0px,0.0px); opacity:1; }
+  11.429% { transform: translate(3.0px,0.0px); opacity:1; }
+  11.857% { transform: translate(3.0px,0.0px); opacity:1; }
+  13.143% { transform: translate(6.0px,0.0px); opacity:1; }
+  13.571% { transform: translate(6.0px,0.0px); opacity:1; }
+  14.857% { transform: translate(0.0px,2.95px); opacity:1; }
+  15.286% { transform: translate(0.0px,2.95px); opacity:1; }
+  16.571% { transform: translate(3.0px,2.95px); opacity:1; }
+  17.000% { transform: translate(3.0px,2.95px); opacity:1; }
+  18.286% { transform: translate(6.0px,2.95px); opacity:1; }
+  59.857% { transform: translate(6.0px,2.95px); opacity:1; }
+  61.143% { transform: translate(3.0px,2.95px); opacity:1; }
+  61.571% { transform: translate(3.0px,2.95px); opacity:1; }
+  62.857% { transform: translate(0.0px,2.95px); opacity:1; }
+  63.286% { transform: translate(0.0px,2.95px); opacity:1; }
+  64.571% { transform: translate(6.0px,0.0px); opacity:1; }
+  65.000% { transform: translate(6.0px,0.0px); opacity:1; }
+  66.286% { transform: translate(3.0px,0.0px); opacity:1; }
+  66.714% { transform: translate(3.0px,0.0px); opacity:1; }
+  68.000% { transform: translate(0.0px,0.0px); opacity:1; }
+  68.571% { transform: translate(0.0px,0.0px); opacity:1; }
+  72.857% { transform: translate(0.0px,0.0px); opacity:0; }
+  100.000% { transform: translate(0.0px,0.0px); opacity:0; }
+}
+@keyframes needle {
+  0.000% { transform: rotate(-65deg); }
+  8.571% { transform: rotate(-65deg); }
+  10.000% { transform: rotate(-33deg); }
+  10.286% { transform: rotate(-36deg); }
+  11.714% { transform: rotate(-7deg); }
+  12.000% { transform: rotate(-10deg); }
+  13.429% { transform: rotate(19deg); }
+  13.714% { transform: rotate(16deg); }
+  15.143% { transform: rotate(45deg); }
+  15.429% { transform: rotate(42deg); }
+  16.857% { transform: rotate(71deg); }
+  17.143% { transform: rotate(68deg); }
+  18.571% { transform: rotate(97deg); }
+  23.571% { transform: rotate(65deg); }
+  69.286% { transform: rotate(65deg); }
+  91.429% { transform: rotate(-65deg); }
+  100.000% { transform: rotate(-65deg); }
+}
+.glow { animation: glow 7s var(--ease) infinite; }
+.needle { animation: needle 7s var(--ease) infinite; }
+@media not all {
+  .offp, .onp, .lamp, .glow, .needle { animation: none !important; }
+}
+</style>
+</head>
+<body>
+
+
+<svg class="hero" viewBox="-214.4 -151.6 546.5 462.1" role="img" aria-label="Isometric diagnostic switchboard with six rocker switches: NHI, Secrets and Orphaned under Identity risk, and ZSP, Cloud and Shadow AI under Access. A risk gauge above swings toward high as each switch flips on, then falls back to low as they switch off.">
+  <defs><linearGradient id="avnight" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#FF4B1F"/><stop offset="1" stop-color="#1FDDFF"/></linearGradient><linearGradient id="gg" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#FF4B1F"/><stop offset="1" stop-color="#1FDDFF"/></linearGradient><filter id="stip" x="-20%" y="-20%" width="140%" height="140%"><feTurbulence type="fractalNoise" baseFrequency="42" numOctaves="2" seed="4" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -2 1.75" result="d"/><feComposite in="SourceGraphic" in2="d" operator="in"/></filter><radialGradient id="grm" cx="50%" cy="50%" r="55%"><stop offset="0" stop-color="#fff"/><stop offset=".7" stop-color="#fff" stop-opacity=".5"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient><mask id="gridmask" maskContentUnits="objectBoundingBox"><rect width="1" height="1" fill="url(#grm)"/></mask></defs>
+  <path class="grid" mask="url(#gridmask)" d="M0.0 -476.0L-1060.0 136.0M0.0 -476.0L1177.8 204.0M29.4 -459.0L-1030.6 153.0M-29.4 -459.0L1148.3 221.0M58.9 -442.0L-1001.1 170.0M-58.9 -442.0L1118.9 238.0M88.3 -425.0L-971.7 187.0M-88.3 -425.0L1089.5 255.0M117.8 -408.0L-942.2 204.0M-117.8 -408.0L1060.0 272.0M147.2 -391.0L-912.8 221.0M-147.2 -391.0L1030.6 289.0M176.7 -374.0L-883.3 238.0M-176.7 -374.0L1001.1 306.0M206.1 -357.0L-853.9 255.0M-206.1 -357.0L971.7 323.0M235.6 -340.0L-824.5 272.0M-235.6 -340.0L942.2 340.0M265.0 -323.0L-795.0 289.0M-265.0 -323.0L912.8 357.0M294.4 -306.0L-765.6 306.0M-294.4 -306.0L883.3 374.0M323.9 -289.0L-736.1 323.0M-323.9 -289.0L853.9 391.0M353.3 -272.0L-706.7 340.0M-353.3 -272.0L824.5 408.0M382.8 -255.0L-677.2 357.0M-382.8 -255.0L795.0 425.0M412.2 -238.0L-647.8 374.0M-412.2 -238.0L765.6 442.0M441.7 -221.0L-618.3 391.0M-441.7 -221.0L736.1 459.0M471.1 -204.0L-588.9 408.0M-471.1 -204.0L706.7 476.0M500.6 -187.0L-559.5 425.0M-500.6 -187.0L677.2 493.0M530.0 -170.0L-530.0 442.0M-530.0 -170.0L647.8 510.0M559.5 -153.0L-500.6 459.0M-559.5 -153.0L618.3 527.0M588.9 -136.0L-471.1 476.0M-588.9 -136.0L588.9 544.0M618.3 -119.0L-441.7 493.0M-618.3 -119.0L559.5 561.0M647.8 -102.0L-412.2 510.0M-647.8 -102.0L530.0 578.0M677.2 -85.0L-382.8 527.0M-677.2 -85.0L500.6 595.0M706.7 -68.0L-353.3 544.0M-706.7 -68.0L471.1 612.0M736.1 -51.0L-323.9 561.0M-736.1 -51.0L441.7 629.0M765.6 -34.0L-294.4 578.0M-765.6 -34.0L412.2 646.0M795.0 -17.0L-265.0 595.0M-795.0 -17.0L382.8 663.0M824.5 0.0L-235.6 612.0M-824.5 0.0L353.3 680.0M853.9 17.0L-206.1 629.0M-853.9 17.0L323.9 697.0M883.3 34.0L-176.7 646.0M-883.3 34.0L294.4 714.0M912.8 51.0L-147.2 663.0M-912.8 51.0L265.0 731.0M942.2 68.0L-117.8 680.0M-942.2 68.0L235.6 748.0M971.7 85.0L-88.3 697.0M-971.7 85.0L206.1 765.0M1001.1 102.0L-58.9 714.0M-1001.1 102.0L176.7 782.0M1030.6 119.0L-29.4 731.0M-1030.6 119.0L147.2 799.0M1060.0 136.0L0.0 748.0M-1060.0 136.0L117.8 816.0M1089.5 153.0L29.4 765.0M-1089.5 153.0L88.3 833.0M1118.9 170.0L58.9 782.0M-1118.9 170.0L58.9 850.0M1148.3 187.0L88.3 799.0M-1148.3 187.0L29.4 867.0"/><path class="ink-line" d="M163.8 73.1L163.8 10.2M171.8 73.1L171.8 10.2"/><g transform="matrix(29.4449,17.0000,0,34.0000,175.20,-43.35)"><circle r="1.45" class="f-night" vector-effect="non-scaling-stroke"/></g><g transform="matrix(29.4449,17.0000,0,34.0000,167.84,-39.10)"><circle r="1.45" class="f-white" vector-effect="non-scaling-stroke"/><circle r="0.95" class="ink-thin" vector-effect="non-scaling-stroke"/><path class="ink-line" vector-effect="non-scaling-stroke" d="M-1.187 -0.554L-0.933 -0.435M-1.134 -0.655L-1.013 -0.585M-1.073 -0.751L-0.958 -0.671M-1.004 -0.842L-0.896 -0.752M-0.926 -0.926L-0.827 -0.827M-0.842 -1.004L-0.752 -0.896M-0.751 -1.073L-0.591 -0.844M-0.655 -1.134L-0.585 -1.013M-0.554 -1.187L-0.494 -1.060M-0.448 -1.231L-0.400 -1.099M-0.339 -1.265L-0.303 -1.130M-0.227 -1.290L-0.203 -1.152M-0.114 -1.305L-0.090 -1.026M0.000 -1.310L0.000 -1.030M0.114 -1.305L0.102 -1.166M0.227 -1.290L0.203 -1.152M0.339 -1.265L0.303 -1.130M0.448 -1.231L0.400 -1.099M0.554 -1.187L0.435 -0.933M0.655 -1.134L0.585 -1.013M0.751 -1.073L0.671 -0.958M0.842 -1.004L0.752 -0.896M0.926 -0.926L0.827 -0.827M1.004 -0.842L0.896 -0.752M1.073 -0.751L0.844 -0.591M1.134 -0.655L1.013 -0.585M1.187 -0.554L0.933 -0.435"/><text x="-.78" y=".55" class="lbl sm">LOW</text><text x=".78" y=".55" class="lbl sm">HIGH</text><text x="0" y=".95" class="lbl xs">RISK</text><g class="needle"><path class="needle-l" vector-effect="non-scaling-stroke" d="M0 .18V-1.15"/></g><circle r=".11" class="dot"/></g><polygon class="f-night" points="294.45,170.00 117.78,272.00 117.78,255.00 294.45,153.00"/><polygon class="f-paper" points="-176.67,102.00 117.78,272.00 117.78,255.00 -176.67,85.00"/><polygon class="f-white" points="0.00,-17.00 294.45,153.00 117.78,255.00 -176.67,85.00"/><g transform="matrix(29.4449,17.0000,-29.4449,17.0000,0.00,-17.00)"><circle cx="0.28" cy="0.28" r=".08" class="f-white" vector-effect="non-scaling-stroke"/><circle cx="9.72" cy="0.28" r=".08" class="f-white" vector-effect="non-scaling-stroke"/><circle cx="0.28" cy="5.72" r=".08" class="f-white" vector-effect="non-scaling-stroke"/><circle cx="9.72" cy="5.72" r=".08" class="f-white" vector-effect="non-scaling-stroke"/><text x=".7" y=".72" class="lbl row">IDENTITY RISK</text><path class="ink-thin" vector-effect="non-scaling-stroke" d="M3.75 .64H9.3"/><text x=".7" y="3.62" class="lbl row">ACCESS</text><path class="ink-thin" vector-effect="non-scaling-stroke" d="M2.25 3.54H9.3"/><g transform="translate(2.0,1.7)"><g class="glow"><rect x="-.95" y="-1.0" width="1.9" height="2.0" rx=".5" fill="url(#gg)" filter="url(#stip)"/></g></g><g transform="translate(2.0,1.7)"><rect x="-.55" y="-.72" width="1.1" height="1.44" rx=".16" class="f-white" vector-effect="non-scaling-stroke"/><g class="offp s0o"><rect x="-.36" y="-.54" width=".72" height="1.08" rx=".1" class="f-paper" vector-effect="non-scaling-stroke"/><path class="f-night" vector-effect="non-scaling-stroke" d="M-.36 0H.36V.44Q.36 .54 .26 .54H-.26Q-.36 .54 -.36 .44Z"/></g><g class="onp s0n"><rect x="-.36" y="-.54" width=".72" height="1.08" rx=".1" class="f-paper" vector-effect="non-scaling-stroke"/><path class="f-night" vector-effect="non-scaling-stroke" d="M-.36 0H.36V-.44Q.36 -.54 .26 -.54H-.26Q-.36 -.54 -.36 -.44Z"/></g><circle cx=".82" cy="-.55" r=".12" class="lamp l0" vector-effect="non-scaling-stroke"/><text x="-.55" y="1.12" class="lbl nm">NHI</text></g><g transform="translate(5.0,1.7)"><rect x="-.55" y="-.72" width="1.1" height="1.44" rx=".16" class="f-white" vector-effect="non-scaling-stroke"/><g class="offp s1o"><rect x="-.36" y="-.54" width=".72" height="1.08" rx=".1" class="f-paper" vector-effect="non-scaling-stroke"/><path class="f-night" vector-effect="non-scaling-stroke" d="M-.36 0H.36V.44Q.36 .54 .26 .54H-.26Q-.36 .54 -.36 .44Z"/></g><g class="onp s1n"><rect x="-.36" y="-.54" width=".72" height="1.08" rx=".1" class="f-paper" vector-effect="non-scaling-stroke"/><path class="f-night" vector-effect="non-scaling-stroke" d="M-.36 0H.36V-.44Q.36 -.54 .26 -.54H-.26Q-.36 -.54 -.36 -.44Z"/></g><circle cx=".82" cy="-.55" r=".12" class="lamp l1" vector-effect="non-scaling-stroke"/><text x="-.55" y="1.12" class="lbl nm">SECRETS</text></g><g transform="translate(8.0,1.7)"><rect x="-.55" y="-.72" width="1.1" height="1.44" rx=".16" class="f-white" vector-effect="non-scaling-stroke"/><g class="offp s2o"><rect x="-.36" y="-.54" width=".72" height="1.08" rx=".1" class="f-paper" vector-effect="non-scaling-stroke"/><path class="f-night" vector-effect="non-scaling-stroke" d="M-.36 0H.36V.44Q.36 .54 .26 .54H-.26Q-.36 .54 -.36 .44Z"/></g><g class="onp s2n"><rect x="-.36" y="-.54" width=".72" height="1.08" rx=".1" class="f-paper" vector-effect="non-scaling-stroke"/><path class="f-night" vector-effect="non-scaling-stroke" d="M-.36 0H.36V-.44Q.36 -.54 .26 -.54H-.26Q-.36 -.54 -.36 -.44Z"/></g><circle cx=".82" cy="-.55" r=".12" class="lamp l2" vector-effect="non-scaling-stroke"/><text x="-.55" y="1.12" class="lbl nm">ORPHANED</text></g><g transform="translate(2.0,4.65)"><rect x="-.55" y="-.72" width="1.1" height="1.44" rx=".16" class="f-white" vector-effect="non-scaling-stroke"/><g class="offp s3o"><rect x="-.36" y="-.54" width=".72" height="1.08" rx=".1" class="f-paper" vector-effect="non-scaling-stroke"/><path class="f-night" vector-effect="non-scaling-stroke" d="M-.36 0H.36V.44Q.36 .54 .26 .54H-.26Q-.36 .54 -.36 .44Z"/></g><g class="onp s3n"><rect x="-.36" y="-.54" width=".72" height="1.08" rx=".1" class="f-paper" vector-effect="non-scaling-stroke"/><path class="f-night" vector-effect="non-scaling-stroke" d="M-.36 0H.36V-.44Q.36 -.54 .26 -.54H-.26Q-.36 -.54 -.36 -.44Z"/></g><circle cx=".82" cy="-.55" r=".12" class="lamp l3" vector-effect="non-scaling-stroke"/><text x="-.55" y="1.12" class="lbl nm">ZSP</text></g><g transform="translate(5.0,4.65)"><rect x="-.55" y="-.72" width="1.1" height="1.44" rx=".16" class="f-white" vector-effect="non-scaling-stroke"/><g class="offp s4o"><rect x="-.36" y="-.54" width=".72" height="1.08" rx=".1" class="f-paper" vector-effect="non-scaling-stroke"/><path class="f-night" vector-effect="non-scaling-stroke" d="M-.36 0H.36V.44Q.36 .54 .26 .54H-.26Q-.36 .54 -.36 .44Z"/></g><g class="onp s4n"><rect x="-.36" y="-.54" width=".72" height="1.08" rx=".1" class="f-paper" vector-effect="non-scaling-stroke"/><path class="f-night" vector-effect="non-scaling-stroke" d="M-.36 0H.36V-.44Q.36 -.54 .26 -.54H-.26Q-.36 -.54 -.36 -.44Z"/></g><circle cx=".82" cy="-.55" r=".12" class="lamp l4" vector-effect="non-scaling-stroke"/><text x="-.55" y="1.12" class="lbl nm">CLOUD</text></g><g transform="translate(8.0,4.65)"><rect x="-.55" y="-.72" width="1.1" height="1.44" rx=".16" class="f-white" vector-effect="non-scaling-stroke"/><g class="offp s5o"><rect x="-.36" y="-.54" width=".72" height="1.08" rx=".1" class="f-paper" vector-effect="non-scaling-stroke"/><path class="f-night" vector-effect="non-scaling-stroke" d="M-.36 0H.36V.44Q.36 .54 .26 .54H-.26Q-.36 .54 -.36 .44Z"/></g><g class="onp s5n"><rect x="-.36" y="-.54" width=".72" height="1.08" rx=".1" class="f-paper" vector-effect="non-scaling-stroke"/><path class="f-night" vector-effect="non-scaling-stroke" d="M-.36 0H.36V-.44Q.36 -.54 .26 -.54H-.26Q-.36 -.54 -.36 -.44Z"/></g><circle cx=".82" cy="-.55" r=".12" class="lamp l5" vector-effect="non-scaling-stroke"/><text x="-.55" y="1.12" class="lbl nm">SHADOW AI</text></g></g>
+</svg>
+
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Avistar District</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: one round model plate with four regulated buildings around a read-only tower; the sweeping beam is the only colour */
+:root {
+  --paper: #F5F3F0; --white: #FFFFFF; --ink: #141414; --night: url(#avnight);
+  --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --spin: cubic-bezier(0.65, 0, 0.35, 1);
+  
+}
+* { box-sizing: border-box; }
+html, body { background: transparent; color: var(--ink); }
+body {
+  margin: 0; min-height: 100%;
+  padding: 0;
+  display: flex; justify-content: center; align-items: center;
+}
+svg.hero { width: 100%; height: auto; max-width: 100%; display: block; overflow: visible; }
+.grid { display: none; }
+.f-white, .f-paper, .f-night, .win { stroke: var(--ink); stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.f-white { fill: var(--white); } .f-paper, .win { fill: var(--paper); } .f-night { fill: var(--night); }
+.win { stroke-width: 1; }
+.rivet { fill: var(--white); stroke: var(--ink); stroke-width: 1; }
+.cross { fill: var(--ink); stroke: var(--ink); stroke-width: 1; stroke-linejoin: round; }
+.ink-line { fill: none; stroke: var(--ink); stroke-width: 1.5; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.ink-thin { fill: none; stroke: var(--ink); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.dot { fill: var(--ink); }
+.lbl { font-family: var(--mono); font-weight: 500; font-size: .17px; letter-spacing: .03px; text-anchor: middle; fill: var(--ink); }
+.tagt { font-family: var(--mono); font-weight: 500; font-size: .14px; letter-spacing: .01px; text-anchor: middle; fill: var(--ink); }
+.spin path { mix-blend-mode: multiply; }
+/* resting state, also used for reduced motion: every building lit and owned, beam resting on Finance */
+.win { fill: var(--night); }
+.spin { transform: rotate(135deg); }
+@keyframes w0 {
+  0.000% { fill: var(--paper); }
+  31.232% { fill: var(--night); }
+  32.232% { fill: var(--paper); }
+  33.232% { fill: var(--night); }
+  96.250% { fill: var(--paper); }
+  100.000% { fill: var(--paper); }
+}
+.w0 { animation: w0 8s steps(1,end) infinite; }
+@keyframes t0 {
+  0.000% { opacity:0; transform: translateY(-.3px); }
+  33.107% { opacity:0; transform: translateY(-.3px); }
+  38.732% { opacity:1; transform: translateY(0); }
+  94.375% { opacity:1; transform: translateY(0); }
+  98.125% { opacity:0; transform: translateY(0); }
+  100.000% { opacity:0; transform: translateY(-.3px); }
+}
+.t0 { animation: t0 8s var(--ease) infinite; }
+@keyframes w1 {
+  0.000% { fill: var(--paper); }
+  45.470% { fill: var(--night); }
+  46.470% { fill: var(--paper); }
+  47.470% { fill: var(--night); }
+  96.250% { fill: var(--paper); }
+  100.000% { fill: var(--paper); }
+}
+.w1 { animation: w1 8s steps(1,end) infinite; }
+@keyframes t1 {
+  0.000% { opacity:0; transform: translateY(-.3px); }
+  47.345% { opacity:0; transform: translateY(-.3px); }
+  52.970% { opacity:1; transform: translateY(0); }
+  94.375% { opacity:1; transform: translateY(0); }
+  98.125% { opacity:0; transform: translateY(0); }
+  100.000% { opacity:0; transform: translateY(-.3px); }
+}
+.t1 { animation: t1 8s var(--ease) infinite; }
+@keyframes w2 {
+  0.000% { fill: var(--paper); }
+  68.768% { fill: var(--night); }
+  69.768% { fill: var(--paper); }
+  70.768% { fill: var(--night); }
+  96.250% { fill: var(--paper); }
+  100.000% { fill: var(--paper); }
+}
+.w2 { animation: w2 8s steps(1,end) infinite; }
+@keyframes t2 {
+  0.000% { opacity:0; transform: translateY(-.3px); }
+  70.643% { opacity:0; transform: translateY(-.3px); }
+  76.268% { opacity:1; transform: translateY(0); }
+  94.375% { opacity:1; transform: translateY(0); }
+  98.125% { opacity:0; transform: translateY(0); }
+  100.000% { opacity:0; transform: translateY(-.3px); }
+}
+.t2 { animation: t2 8s var(--ease) infinite; }
+@keyframes w3 {
+  0.000% { fill: var(--paper); }
+  54.530% { fill: var(--night); }
+  55.530% { fill: var(--paper); }
+  56.530% { fill: var(--night); }
+  96.250% { fill: var(--paper); }
+  100.000% { fill: var(--paper); }
+}
+.w3 { animation: w3 8s steps(1,end) infinite; }
+@keyframes t3 {
+  0.000% { opacity:0; transform: translateY(-.3px); }
+  56.405% { opacity:0; transform: translateY(-.3px); }
+  62.030% { opacity:1; transform: translateY(0); }
+  94.375% { opacity:1; transform: translateY(0); }
+  98.125% { opacity:0; transform: translateY(0); }
+  100.000% { opacity:0; transform: translateY(-.3px); }
+}
+.t3 { animation: t3 8s var(--ease) infinite; }
+.spin { animation: spin 8s var(--spin) infinite; }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@media not all {
+  .spin, .win, .tag { animation: none !important; }
+}
+</style>
+</head>
+<body>
+<svg class="hero" viewBox="-275.5 -234.8 551.2 404.3" role="img" aria-label="Isometric architectural model: Healthcare, Finance, SaaS and Public Sector buildings on a round plate around a read-only tower. A lighthouse beam sweeps past each building, lighting its windows and tagging the key at its door with an owner.">
+  <defs><linearGradient id="avnight" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#FF4B1F"/><stop offset="1" stop-color="#1FDDFF"/></linearGradient><linearGradient id="bg" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="6.2" y2="0"><stop offset="0" stop-color="#FF4B1F" stop-opacity=".95"/><stop offset="1" stop-color="#1FDDFF" stop-opacity=".35"/></linearGradient><filter id="stip" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency="30" numOctaves="2" seed="4" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -2 1.7" result="d"/><feComposite in="SourceGraphic" in2="d" operator="in"/></filter><radialGradient id="grm" cx="50%" cy="50%" r="55%"><stop offset="0" stop-color="#fff"/><stop offset=".7" stop-color="#fff" stop-opacity=".5"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient><mask id="gridmask" maskContentUnits="objectBoundingBox"><rect width="1" height="1" fill="url(#grm)"/></mask></defs>
+  <path class="grid" mask="url(#gridmask)" d="M0.0 -480.0L-831.4 0.0M0.0 -480.0L831.4 0.0M26.0 -465.0L-805.4 15.0M-26.0 -465.0L805.4 15.0M52.0 -450.0L-779.4 30.0M-52.0 -450.0L779.4 30.0M77.9 -435.0L-753.4 45.0M-77.9 -435.0L753.4 45.0M103.9 -420.0L-727.5 60.0M-103.9 -420.0L727.5 60.0M129.9 -405.0L-701.5 75.0M-129.9 -405.0L701.5 75.0M155.9 -390.0L-675.5 90.0M-155.9 -390.0L675.5 90.0M181.9 -375.0L-649.5 105.0M-181.9 -375.0L649.5 105.0M207.8 -360.0L-623.5 120.0M-207.8 -360.0L623.5 120.0M233.8 -345.0L-597.6 135.0M-233.8 -345.0L597.6 135.0M259.8 -330.0L-571.6 150.0M-259.8 -330.0L571.6 150.0M285.8 -315.0L-545.6 165.0M-285.8 -315.0L545.6 165.0M311.8 -300.0L-519.6 180.0M-311.8 -300.0L519.6 180.0M337.7 -285.0L-493.6 195.0M-337.7 -285.0L493.6 195.0M363.7 -270.0L-467.7 210.0M-363.7 -270.0L467.7 210.0M389.7 -255.0L-441.7 225.0M-389.7 -255.0L441.7 225.0M415.7 -240.0L-415.7 240.0M-415.7 -240.0L415.7 240.0M441.7 -225.0L-389.7 255.0M-441.7 -225.0L389.7 255.0M467.7 -210.0L-363.7 270.0M-467.7 -210.0L363.7 270.0M493.6 -195.0L-337.7 285.0M-493.6 -195.0L337.7 285.0M519.6 -180.0L-311.8 300.0M-519.6 -180.0L311.8 300.0M545.6 -165.0L-285.8 315.0M-545.6 -165.0L285.8 315.0M571.6 -150.0L-259.8 330.0M-571.6 -150.0L259.8 330.0M597.6 -135.0L-233.8 345.0M-597.6 -135.0L233.8 345.0M623.5 -120.0L-207.8 360.0M-623.5 -120.0L207.8 360.0M649.5 -105.0L-181.9 375.0M-649.5 -105.0L181.9 375.0M675.5 -90.0L-155.9 390.0M-675.5 -90.0L155.9 390.0M701.5 -75.0L-129.9 405.0M-701.5 -75.0L129.9 405.0M727.5 -60.0L-103.9 420.0M-727.5 -60.0L103.9 420.0M753.4 -45.0L-77.9 435.0M-753.4 -45.0L77.9 435.0M779.4 -30.0L-52.0 450.0M-779.4 -30.0L52.0 450.0M805.4 -15.0L-26.0 465.0M-805.4 -15.0L26.0 465.0M831.4 0.0L0.0 480.0M-831.4 0.0L0.0 480.0"/><path class="f-night" d="M-246.2 -13.5L-246.2 0.0A246.2 142.1 0 0 0 246.2 0.0L246.2 -13.5Z"/><ellipse class="f-white" cx="0.0" cy="-13.5" rx="246.2" ry="142.1"/><ellipse cx="165.0" cy="81.7" rx="2.6" ry="1.5" class="rivet"/><ellipse cx="124.1" cy="100.6" rx="2.6" ry="1.5" class="rivet"/><ellipse cx="77.1" cy="113.6" rx="2.6" ry="1.5" class="rivet"/><ellipse cx="26.1" cy="120.4" rx="2.6" ry="1.5" class="rivet"/><ellipse cx="-26.1" cy="120.4" rx="2.6" ry="1.5" class="rivet"/><ellipse cx="-77.1" cy="113.6" rx="2.6" ry="1.5" class="rivet"/><ellipse cx="-124.1" cy="100.6" rx="2.6" ry="1.5" class="rivet"/><ellipse cx="-165.0" cy="81.7" rx="2.6" ry="1.5" class="rivet"/><ellipse cx="-197.6" cy="58.2" rx="2.6" ry="1.5" class="rivet"/><ellipse cx="-220.2" cy="31.0" rx="2.6" ry="1.5" class="rivet"/><ellipse cx="-231.8" cy="1.6" rx="2.6" ry="1.5" class="rivet"/><ellipse cx="-231.8" cy="-28.6" rx="2.6" ry="1.5" class="rivet"/><ellipse cx="-220.2" cy="-58.0" rx="2.6" ry="1.5" class="rivet"/><ellipse cx="-197.6" cy="-85.2" rx="2.6" ry="1.5" class="rivet"/><ellipse cx="-165.0" cy="-108.7" rx="2.6" ry="1.5" class="rivet"/><ellipse cx="-124.1" cy="-127.6" rx="2.6" ry="1.5" class="rivet"/><ellipse cx="-77.1" cy="-140.6" rx="2.6" ry="1.5" class="rivet"/><ellipse cx="-26.1" cy="-147.4" rx="2.6" ry="1.5" class="rivet"/><ellipse cx="26.1" cy="-147.4" rx="2.6" ry="1.5" class="rivet"/><ellipse cx="77.1" cy="-140.6" rx="2.6" ry="1.5" class="rivet"/><ellipse cx="124.1" cy="-127.6" rx="2.6" ry="1.5" class="rivet"/><ellipse cx="165.0" cy="-108.8" rx="2.6" ry="1.5" class="rivet"/><ellipse cx="197.6" cy="-85.2" rx="2.6" ry="1.5" class="rivet"/><ellipse cx="220.2" cy="-58.0" rx="2.6" ry="1.5" class="rivet"/><ellipse cx="231.8" cy="-28.6" rx="2.6" ry="1.5" class="rivet"/><ellipse cx="231.8" cy="1.6" rx="2.6" ry="1.5" class="rivet"/><ellipse cx="220.2" cy="31.0" rx="2.6" ry="1.5" class="rivet"/><ellipse cx="197.6" cy="58.2" rx="2.6" ry="1.5" class="rivet"/><polygon class="f-night" points="62.35,-103.50 0.00,-67.50 0.00,-139.50 62.35,-175.50"/><polygon class="f-paper" points="-62.35,-103.50 0.00,-67.50 0.00,-139.50 -62.35,-175.50"/><polygon class="f-white" points="0.00,-211.50 62.35,-175.50 0.00,-139.50 -62.35,-175.50"/><g transform="matrix(25.9808,15.0000,-25.9808,15.0000,0.00,-211.50)"><path class="cross" vector-effect="non-scaling-stroke" d="M1.0 .55H1.4V1.0H1.85V1.4H1.4V1.85H1.0V1.4H.55V1.0H1.0Z"/></g><g transform="matrix(25.9808,15.0000,0,30.0000,-62.35,-175.50)"><rect x="0.30" y="0.30" width="0.60" height="0.30" rx=".04" class="win w0" vector-effect="non-scaling-stroke"/><rect x="1.45" y="0.30" width="0.60" height="0.30" rx=".04" class="win w0" vector-effect="non-scaling-stroke"/><rect x="0.30" y="0.80" width="0.60" height="0.30" rx=".04" class="win w0" vector-effect="non-scaling-stroke"/><rect x="1.45" y="0.80" width="0.60" height="0.30" rx=".04" class="win w0" vector-effect="non-scaling-stroke"/><rect x="0.30" y="1.30" width="0.60" height="0.30" rx=".04" class="win w0" vector-effect="non-scaling-stroke"/><rect x="1.45" y="1.30" width="0.60" height="0.30" rx=".04" class="win w0" vector-effect="non-scaling-stroke"/></g><g transform="matrix(25.9808,15.0000,0,30.0000,-62.35,-175.50)"><rect x="0.96" y="1.78" width=".48" height=".62" rx=".08" class="f-night" vector-effect="non-scaling-stroke"/><circle cx="1.70" cy="1.82" r=".09" class="f-white" vector-effect="non-scaling-stroke"/><path class="ink-line" vector-effect="non-scaling-stroke" d="M1.70 1.91V2.10M1.70 2.04H1.78"/><g class="tag t0"><path class="ink-thin" vector-effect="non-scaling-stroke" d="M1.70 2.10V2.16"/><rect x="1.38" y="2.16" width=".66" height=".24" rx=".05" class="f-white" vector-effect="non-scaling-stroke"/><text x="1.71" y="2.32" class="tagt">OWNER</text></g></g><polygon class="f-night" points="-18.71,-59.70 -26.50,-55.20 -26.50,-64.20 -18.71,-68.70"/><polygon class="f-paper" points="-83.66,-88.20 -26.50,-55.20 -26.50,-64.20 -83.66,-97.20"/><polygon class="f-white" points="-75.86,-101.70 -18.71,-68.70 -26.50,-64.20 -83.66,-97.20"/><g transform="matrix(25.9808,15.0000,0,30.0000,-83.66,-97.20)"><text x="1.10" y=".21" class="lbl">HEALTHCARE</text><circle cx=".1" cy=".15" r=".035" class="dot"/><circle cx="2.10" cy=".15" r=".035" class="dot"/></g><polygon class="f-night" points="218.24,-13.50 155.88,22.50 155.88,-34.50 218.24,-70.50"/><polygon class="f-paper" points="93.53,-13.50 155.88,22.50 155.88,-34.50 93.53,-70.50"/><polygon class="f-white" points="155.88,-106.50 218.24,-70.50 155.88,-34.50 93.53,-70.50"/><g transform="matrix(25.9808,15.0000,0,30.0000,93.53,-70.50)"><rect x="0.35" y="0.12" width="0.46" height="0.18" rx=".04" class="win w1" vector-effect="non-scaling-stroke"/><rect x="0.97" y="0.12" width="0.46" height="0.18" rx=".04" class="win w1" vector-effect="non-scaling-stroke"/><rect x="1.59" y="0.12" width="0.46" height="0.18" rx=".04" class="win w1" vector-effect="non-scaling-stroke"/></g><g transform="matrix(25.9808,15.0000,0,30.0000,93.53,-70.50)"><rect x="0.18" y=".42" width=".18" height="1.48" class="f-white" vector-effect="non-scaling-stroke"/><rect x="0.60" y=".42" width=".18" height="1.48" class="f-white" vector-effect="non-scaling-stroke"/><rect x="1.62" y=".42" width=".18" height="1.48" class="f-white" vector-effect="non-scaling-stroke"/><rect x="2.04" y=".42" width=".18" height="1.48" class="f-white" vector-effect="non-scaling-stroke"/></g><g transform="matrix(25.9808,15.0000,0,30.0000,93.53,-70.50)"><rect x="0.76" y="1.28" width=".48" height=".62" rx=".08" class="f-night" vector-effect="non-scaling-stroke"/><circle cx="1.50" cy="1.32" r=".09" class="f-white" vector-effect="non-scaling-stroke"/><path class="ink-line" vector-effect="non-scaling-stroke" d="M1.50 1.41V1.60M1.50 1.54H1.58"/><g class="tag t1"><path class="ink-thin" vector-effect="non-scaling-stroke" d="M1.50 1.60V1.66"/><rect x="1.18" y="1.66" width=".66" height=".24" rx=".05" class="f-white" vector-effect="non-scaling-stroke"/><text x="1.51" y="1.82" class="tagt">OWNER</text></g></g><polygon class="f-night" points="226.03,-70.50 155.88,-30.00 155.88,-36.00 226.03,-76.50"/><polygon class="f-paper" points="85.74,-70.50 155.88,-30.00 155.88,-36.00 85.74,-76.50"/><polygon class="f-white" points="155.88,-117.00 226.03,-76.50 155.88,-36.00 85.74,-76.50"/><polygon class="f-night" points="137.18,30.30 129.38,34.80 129.38,25.80 137.18,21.30"/><polygon class="f-paper" points="72.23,1.80 129.38,34.80 129.38,25.80 72.23,-7.20"/><polygon class="f-white" points="80.02,-11.70 137.18,21.30 129.38,25.80 72.23,-7.20"/><g transform="matrix(25.9808,15.0000,0,30.0000,72.23,-7.20)"><text x="1.10" y=".21" class="lbl">FINANCE</text><circle cx=".1" cy=".15" r=".035" class="dot"/><circle cx="2.10" cy=".15" r=".035" class="dot"/></g><polygon class="f-night" points="-93.53,-13.50 -155.88,22.50 -155.88,-4.50 -93.53,-40.50"/><polygon class="f-paper" points="-218.24,-13.50 -155.88,22.50 -155.88,-4.50 -218.24,-40.50"/><polygon class="f-white" points="-155.88,-76.50 -93.53,-40.50 -155.88,-4.50 -218.24,-40.50"/><polygon class="f-night" points="-98.73,-42.90 -155.88,-9.90 -155.88,-22.50 -98.73,-55.50"/><polygon class="f-paper" points="-213.04,-42.90 -155.88,-9.90 -155.88,-22.50 -213.04,-55.50"/><polygon class="f-white" points="-155.88,-88.50 -98.73,-55.50 -155.88,-22.50 -213.04,-55.50"/><g transform="matrix(25.9808,15.0000,0,30.0000,-213.04,-55.50)"><rect x="0.25" y="0.17" width="0.14" height="0.10" rx=".04" class="win w2" vector-effect="non-scaling-stroke"/><rect x="0.55" y="0.17" width="0.14" height="0.10" rx=".04" class="win w2" vector-effect="non-scaling-stroke"/><rect x="0.85" y="0.17" width="0.14" height="0.10" rx=".04" class="win w2" vector-effect="non-scaling-stroke"/><rect x="1.15" y="0.17" width="0.14" height="0.10" rx=".04" class="win w2" vector-effect="non-scaling-stroke"/></g><polygon class="f-night" points="-98.73,-57.90 -155.88,-24.90 -155.88,-37.50 -98.73,-70.50"/><polygon class="f-paper" points="-213.04,-57.90 -155.88,-24.90 -155.88,-37.50 -213.04,-70.50"/><polygon class="f-white" points="-155.88,-103.50 -98.73,-70.50 -155.88,-37.50 -213.04,-70.50"/><g transform="matrix(25.9808,15.0000,0,30.0000,-213.04,-70.50)"><rect x="0.25" y="0.17" width="0.14" height="0.10" rx=".04" class="win w2" vector-effect="non-scaling-stroke"/><rect x="0.55" y="0.17" width="0.14" height="0.10" rx=".04" class="win w2" vector-effect="non-scaling-stroke"/><rect x="0.85" y="0.17" width="0.14" height="0.10" rx=".04" class="win w2" vector-effect="non-scaling-stroke"/><rect x="1.15" y="0.17" width="0.14" height="0.10" rx=".04" class="win w2" vector-effect="non-scaling-stroke"/></g><polygon class="f-night" points="-98.73,-72.90 -155.88,-39.90 -155.88,-52.50 -98.73,-85.50"/><polygon class="f-paper" points="-213.04,-72.90 -155.88,-39.90 -155.88,-52.50 -213.04,-85.50"/><polygon class="f-white" points="-155.88,-118.50 -98.73,-85.50 -155.88,-52.50 -213.04,-85.50"/><g transform="matrix(25.9808,15.0000,0,30.0000,-213.04,-85.50)"><rect x="0.25" y="0.17" width="0.14" height="0.10" rx=".04" class="win w2" vector-effect="non-scaling-stroke"/><rect x="0.55" y="0.17" width="0.14" height="0.10" rx=".04" class="win w2" vector-effect="non-scaling-stroke"/><rect x="0.85" y="0.17" width="0.14" height="0.10" rx=".04" class="win w2" vector-effect="non-scaling-stroke"/><rect x="1.15" y="0.17" width="0.14" height="0.10" rx=".04" class="win w2" vector-effect="non-scaling-stroke"/></g><g transform="matrix(25.9808,15.0000,0,30.0000,-218.24,-40.50)"><rect x="0.96" y="0.28" width=".48" height=".62" rx=".08" class="f-night" vector-effect="non-scaling-stroke"/><circle cx="1.70" cy="0.32" r=".09" class="f-white" vector-effect="non-scaling-stroke"/><path class="ink-line" vector-effect="non-scaling-stroke" d="M1.70 0.41V0.60M1.70 0.54H1.78"/><g class="tag t2"><path class="ink-thin" vector-effect="non-scaling-stroke" d="M1.70 0.60V0.66"/><rect x="1.38" y="0.66" width=".66" height=".24" rx=".05" class="f-white" vector-effect="non-scaling-stroke"/><text x="1.71" y="0.83" class="tagt">OWNER</text></g></g><polygon class="f-night" points="-174.59,30.30 -182.38,34.80 -182.38,25.80 -174.59,21.30"/><polygon class="f-paper" points="-239.54,1.80 -182.38,34.80 -182.38,25.80 -239.54,-7.20"/><polygon class="f-white" points="-231.75,-11.70 -174.59,21.30 -182.38,25.80 -239.54,-7.20"/><g transform="matrix(25.9808,15.0000,0,30.0000,-239.54,-7.20)"><text x="1.10" y=".21" class="lbl">SAAS</text><circle cx=".1" cy=".15" r=".035" class="dot"/><circle cx="2.10" cy=".15" r=".035" class="dot"/></g><path class="f-paper" d="M-31.2 -91.5L-31.2 -13.5A31.2 18.0 0 0 0 31.2 -13.5L31.2 -91.5Z"/><ellipse class="f-white" cx="0.0" cy="-91.5" rx="31.2" ry="18.0"/><path class="f-white" d="M-14.0 -40.5Q0.0 -50.5 14.0 -40.5Q0.0 -30.5 -14.0 -40.5Z"/><circle cx="0.0" cy="-40.5" r="5" class="f-night"/><circle cx="-1.6" cy="-42.1" r="1.3" fill="#fff"/><polygon class="f-night" points="62.35,76.50 0.00,112.50 0.00,67.50 62.35,31.50"/><polygon class="f-paper" points="-62.35,76.50 0.00,112.50 0.00,67.50 -62.35,31.50"/><polygon class="f-white" points="0.00,-4.50 62.35,31.50 0.00,67.50 -62.35,31.50"/><g transform="matrix(25.9808,15.0000,0,30.0000,-62.35,31.50)"><rect x="0.22" y="0.20" width="0.30" height="0.42" rx=".04" class="win w3" vector-effect="non-scaling-stroke"/><rect x="0.77" y="0.20" width="0.30" height="0.42" rx=".04" class="win w3" vector-effect="non-scaling-stroke"/><rect x="1.32" y="0.20" width="0.30" height="0.42" rx=".04" class="win w3" vector-effect="non-scaling-stroke"/><rect x="1.87" y="0.20" width="0.30" height="0.42" rx=".04" class="win w3" vector-effect="non-scaling-stroke"/></g><g transform="matrix(25.9808,15.0000,0,30.0000,-62.35,31.50)"><rect x="0.96" y="0.88" width=".48" height=".62" rx=".08" class="f-night" vector-effect="non-scaling-stroke"/><circle cx="1.70" cy="0.92" r=".09" class="f-white" vector-effect="non-scaling-stroke"/><path class="ink-line" vector-effect="non-scaling-stroke" d="M1.70 1.01V1.20M1.70 1.14H1.78"/><g class="tag t3"><path class="ink-thin" vector-effect="non-scaling-stroke" d="M1.70 1.20V1.26"/><rect x="1.38" y="1.26" width=".66" height=".24" rx=".05" class="f-white" vector-effect="non-scaling-stroke"/><text x="1.71" y="1.43" class="tagt">OWNER</text></g></g><path class="ink-line" d="M46.8 31.5L46.8 -16.5"/><g transform="matrix(25.9808,15.0000,0,30.0000,46.77,-16.50)"><path class="f-white" vector-effect="non-scaling-stroke" d="M0 0H.7L.6 .2L.7 .4H0Z"/></g><polygon class="f-night" points="-18.71,120.30 -26.50,124.80 -26.50,115.80 -18.71,111.30"/><polygon class="f-paper" points="-83.66,91.80 -26.50,124.80 -26.50,115.80 -83.66,82.80"/><polygon class="f-white" points="-75.86,78.30 -18.71,111.30 -26.50,115.80 -83.66,82.80"/><g transform="matrix(25.9808,15.0000,0,30.0000,-83.66,82.80)"><text x="1.10" y=".21" class="lbl">PUBLIC SECTOR</text><circle cx=".1" cy=".15" r=".035" class="dot"/><circle cx="2.10" cy=".15" r=".035" class="dot"/></g><g transform="matrix(25.9808,15.0000,-25.9808,15.0000,0.00,-96.00)"><g class="beam" style="transform: rotate(-180deg)"><g class="spin"><path d="M0 0L6.016 -1.500A6.2 6.2 0 0 1 6.016 1.500Z" fill="url(#bg)" filter="url(#stip)"/></g></g></g><path class="f-night" d="M-22.0 -109.5L-22.0 -94.5A22.0 12.7 0 0 0 22.0 -94.5L22.0 -109.5Z"/><ellipse class="f-white" cx="0.0" cy="-109.5" rx="22.0" ry="12.7"/>
+</svg>
+</body>
+</html>

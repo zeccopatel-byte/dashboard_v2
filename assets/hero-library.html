@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Avistar Library</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Layout: one isometric card-catalog cabinet on paper, a projector and reports on top; the projector beam is the only colour */
+:root {
+  --paper: #F5F3F0; --white: #FFFFFF; --ink: #141414; --night: url(#avnight);
+  --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  
+}
+* { box-sizing: border-box; }
+html, body { background: transparent; color: var(--ink); }
+body {
+  margin: 0; min-height: 100%;
+  padding: 0;
+  display: flex; justify-content: center; align-items: center;
+}
+svg.hero { width: 100%; height: auto; max-width: 100%; display: block; overflow: visible; }
+.grid { display: none; }
+.f-white, .f-paper, .f-night, .brass, .ext-top, .ext-side { stroke: var(--ink); stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.f-white, .ext-top { fill: var(--white); } .f-paper { fill: var(--paper); } .f-night, .ext-side { fill: var(--night); }
+.brass { fill: var(--paper); stroke-width: 2; }
+.ext-top, .ext-side { transform: scale(.001); opacity: 0; }
+.ink-line, .ic { fill: none; stroke: var(--ink); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.ic { stroke-width: 1.2; }
+.icf { fill: var(--ink); }
+.ink-thin { fill: none; stroke: var(--ink); stroke-width: 1; opacity: .5; vector-effect: non-scaling-stroke; }
+.lbl { font-family: var(--mono); font-weight: 500; font-size: .17px; letter-spacing: .03px; text-anchor: middle; fill: var(--ink); }
+.lbl.hd { font-size: .2px; letter-spacing: .1px; }
+.tm { font-family: var(--mono); font-weight: 700; font-size: .24px; text-anchor: middle; fill: var(--ink); opacity: 0; }
+.d0 { opacity: 1; }
+.card { transform: translateY(.6px); opacity: 0; }
+.beam { opacity: 0; }
+.reel { animation: reel 2s linear infinite; }
+@keyframes reel { to { transform: rotate(360deg); } }
+/* resting state, also used for reduced motion: assessment drawer open, timer at 25 min, beam on it */
+.m5 { transform: translate(-30.48px,17.60px); } .ex5 { transform: scaleY(1.1); opacity:1; } .es5 { transform: scaleX(1.1); opacity:1; } .c5 { transform: translateY(-.19px); opacity:1; }
+.d5 { opacity: 1; } .d0 { opacity: 0; }
+.beam { opacity: 1; }
+
+@keyframes m0 {
+  0.000% { transform: translate(-0.00px,0.00px); }
+  12.500% { transform: translate(-0.00px,0.00px); }
+  18.750% { transform: translate(-30.48px,17.60px); }
+  24.375% { transform: translate(-30.48px,17.60px); }
+  30.625% { transform: translate(-0.00px,0.00px); }
+  100.000% { transform: translate(-0.00px,0.00px); }
+}
+.m0 { animation: m0 8s var(--ease) infinite; }
+@keyframes ex0 {
+  0.000% { transform: scaleY(0.001); opacity:0; }
+  12.500% { transform: scaleY(0.001); opacity:0; }
+  18.750% { transform: scaleY(1.100); opacity:1; }
+  24.375% { transform: scaleY(1.100); opacity:1; }
+  30.625% { transform: scaleY(0.001); opacity:0; }
+  100.000% { transform: scaleY(0.001); opacity:0; }
+}
+.ex0 { animation: ex0 8s var(--ease) infinite; }
+@keyframes es0 {
+  0.000% { transform: scaleX(0.001); opacity:0; }
+  12.500% { transform: scaleX(0.001); opacity:0; }
+  18.750% { transform: scaleX(1.100); opacity:1; }
+  24.375% { transform: scaleX(1.100); opacity:1; }
+  30.625% { transform: scaleX(0.001); opacity:0; }
+  100.000% { transform: scaleX(0.001); opacity:0; }
+}
+.es0 { animation: es0 8s var(--ease) infinite; }
+@keyframes c0 {
+  0.000% { transform: translateY(.6px); opacity:0; }
+  15.625% { transform: translateY(.6px); opacity:0; }
+  16.875% { transform: translateY(.6px); opacity:1; }
+  21.250% { transform: translateY(-.19px); opacity:1; }
+  24.375% { transform: translateY(-.19px); opacity:1; }
+  27.500% { transform: translateY(.6px); opacity:1; }
+  28.750% { transform: translateY(.6px); opacity:0; }
+  100.000% { transform: translateY(.6px); opacity:0; }
+}
+.c0 { animation: c0 8s var(--ease) infinite; }
+@keyframes m1 {
+  0.000% { transform: translate(-0.00px,0.00px); }
+  14.000% { transform: translate(-0.00px,0.00px); }
+  20.250% { transform: translate(-30.48px,17.60px); }
+  25.875% { transform: translate(-30.48px,17.60px); }
+  32.125% { transform: translate(-0.00px,0.00px); }
+  100.000% { transform: translate(-0.00px,0.00px); }
+}
+.m1 { animation: m1 8s var(--ease) infinite; }
+@keyframes ex1 {
+  0.000% { transform: scaleY(0.001); opacity:0; }
+  14.000% { transform: scaleY(0.001); opacity:0; }
+  20.250% { transform: scaleY(1.100); opacity:1; }
+  25.875% { transform: scaleY(1.100); opacity:1; }
+  32.125% { transform: scaleY(0.001); opacity:0; }
+  100.000% { transform: scaleY(0.001); opacity:0; }
+}
+.ex1 { animation: ex1 8s var(--ease) infinite; }
+@keyframes es1 {
+  0.000% { transform: scaleX(0.001); opacity:0; }
+  14.000% { transform: scaleX(0.001); opacity:0; }
+  20.250% { transform: scaleX(1.100); opacity:1; }
+  25.875% { transform: scaleX(1.100); opacity:1; }
+  32.125% { transform: scaleX(0.001); opacity:0; }
+  100.000% { transform: scaleX(0.001); opacity:0; }
+}
+.es1 { animation: es1 8s var(--ease) infinite; }
+@keyframes c1 {
+  0.000% { transform: translateY(.6px); opacity:0; }
+  17.125% { transform: translateY(.6px); opacity:0; }
+  18.375% { transform: translateY(.6px); opacity:1; }
+  22.750% { transform: translateY(-.19px); opacity:1; }
+  25.875% { transform: translateY(-.19px); opacity:1; }
+  29.000% { transform: translateY(.6px); opacity:1; }
+  30.250% { transform: translateY(.6px); opacity:0; }
+  100.000% { transform: translateY(.6px); opacity:0; }
+}
+.c1 { animation: c1 8s var(--ease) infinite; }
+@keyframes m2 {
+  0.000% { transform: translate(-0.00px,0.00px); }
+  15.500% { transform: translate(-0.00px,0.00px); }
+  21.750% { transform: translate(-30.48px,17.60px); }
+  27.375% { transform: translate(-30.48px,17.60px); }
+  33.625% { transform: translate(-0.00px,0.00px); }
+  100.000% { transform: translate(-0.00px,0.00px); }
+}
+.m2 { animation: m2 8s var(--ease) infinite; }
+@keyframes ex2 {
+  0.000% { transform: scaleY(0.001); opacity:0; }
+  15.500% { transform: scaleY(0.001); opacity:0; }
+  21.750% { transform: scaleY(1.100); opacity:1; }
+  27.375% { transform: scaleY(1.100); opacity:1; }
+  33.625% { transform: scaleY(0.001); opacity:0; }
+  100.000% { transform: scaleY(0.001); opacity:0; }
+}
+.ex2 { animation: ex2 8s var(--ease) infinite; }
+@keyframes es2 {
+  0.000% { transform: scaleX(0.001); opacity:0; }
+  15.500% { transform: scaleX(0.001); opacity:0; }
+  21.750% { transform: scaleX(1.100); opacity:1; }
+  27.375% { transform: scaleX(1.100); opacity:1; }
+  33.625% { transform: scaleX(0.001); opacity:0; }
+  100.000% { transform: scaleX(0.001); opacity:0; }
+}
+.es2 { animation: es2 8s var(--ease) infinite; }
+@keyframes c2 {
+  0.000% { transform: translateY(.6px); opacity:0; }
+  18.625% { transform: translateY(.6px); opacity:0; }
+  19.875% { transform: translateY(.6px); opacity:1; }
+  24.250% { transform: translateY(-.19px); opacity:1; }
+  27.375% { transform: translateY(-.19px); opacity:1; }
+  30.500% { transform: translateY(.6px); opacity:1; }
+  31.750% { transform: translateY(.6px); opacity:0; }
+  100.000% { transform: translateY(.6px); opacity:0; }
+}
+.c2 { animation: c2 8s var(--ease) infinite; }
+@keyframes m3 {
+  0.000% { transform: translate(-0.00px,0.00px); }
+  17.000% { transform: translate(-0.00px,0.00px); }
+  23.250% { transform: translate(-30.48px,17.60px); }
+  28.875% { transform: translate(-30.48px,17.60px); }
+  35.125% { transform: translate(-0.00px,0.00px); }
+  100.000% { transform: translate(-0.00px,0.00px); }
+}
+.m3 { animation: m3 8s var(--ease) infinite; }
+@keyframes ex3 {
+  0.000% { transform: scaleY(0.001); opacity:0; }
+  17.000% { transform: scaleY(0.001); opacity:0; }
+  23.250% { transform: scaleY(1.100); opacity:1; }
+  28.875% { transform: scaleY(1.100); opacity:1; }
+  35.125% { transform: scaleY(0.001); opacity:0; }
+  100.000% { transform: scaleY(0.001); opacity:0; }
+}
+.ex3 { animation: ex3 8s var(--ease) infinite; }
+@keyframes es3 {
+  0.000% { transform: scaleX(0.001); opacity:0; }
+  17.000% { transform: scaleX(0.001); opacity:0; }
+  23.250% { transform: scaleX(1.100); opacity:1; }
+  28.875% { transform: scaleX(1.100); opacity:1; }
+  35.125% { transform: scaleX(0.001); opacity:0; }
+  100.000% { transform: scaleX(0.001); opacity:0; }
+}
+.es3 { animation: es3 8s var(--ease) infinite; }
+@keyframes c3 {
+  0.000% { transform: translateY(.6px); opacity:0; }
+  20.125% { transform: translateY(.6px); opacity:0; }
+  21.375% { transform: translateY(.6px); opacity:1; }
+  25.750% { transform: translateY(-.19px); opacity:1; }
+  28.875% { transform: translateY(-.19px); opacity:1; }
+  32.000% { transform: translateY(.6px); opacity:1; }
+  33.250% { transform: translateY(.6px); opacity:0; }
+  100.000% { transform: translateY(.6px); opacity:0; }
+}
+.c3 { animation: c3 8s var(--ease) infinite; }
+@keyframes m4 {
+  0.000% { transform: translate(-0.00px,0.00px); }
+  18.500% { transform: translate(-0.00px,0.00px); }
+  24.750% { transform: translate(-30.48px,17.60px); }
+  30.375% { transform: translate(-30.48px,17.60px); }
+  36.625% { transform: translate(-0.00px,0.00px); }
+  100.000% { transform: translate(-0.00px,0.00px); }
+}
+.m4 { animation: m4 8s var(--ease) infinite; }
+@keyframes ex4 {
+  0.000% { transform: scaleY(0.001); opacity:0; }
+  18.500% { transform: scaleY(0.001); opacity:0; }
+  24.750% { transform: scaleY(1.100); opacity:1; }
+  30.375% { transform: scaleY(1.100); opacity:1; }
+  36.625% { transform: scaleY(0.001); opacity:0; }
+  100.000% { transform: scaleY(0.001); opacity:0; }
+}
+.ex4 { animation: ex4 8s var(--ease) infinite; }
+@keyframes es4 {
+  0.000% { transform: scaleX(0.001); opacity:0; }
+  18.500% { transform: scaleX(0.001); opacity:0; }
+  24.750% { transform: scaleX(1.100); opacity:1; }
+  30.375% { transform: scaleX(1.100); opacity:1; }
+  36.625% { transform: scaleX(0.001); opacity:0; }
+  100.000% { transform: scaleX(0.001); opacity:0; }
+}
+.es4 { animation: es4 8s var(--ease) infinite; }
+@keyframes c4 {
+  0.000% { transform: translateY(.6px); opacity:0; }
+  21.625% { transform: translateY(.6px); opacity:0; }
+  22.875% { transform: translateY(.6px); opacity:1; }
+  27.250% { transform: translateY(-.19px); opacity:1; }
+  30.375% { transform: translateY(-.19px); opacity:1; }
+  33.500% { transform: translateY(.6px); opacity:1; }
+  34.750% { transform: translateY(.6px); opacity:0; }
+  100.000% { transform: translateY(.6px); opacity:0; }
+}
+.c4 { animation: c4 8s var(--ease) infinite; }
+@keyframes m5 {
+  0.000% { transform: translate(-0.00px,0.00px); }
+  20.000% { transform: translate(-0.00px,0.00px); }
+  26.875% { transform: translate(-30.48px,17.60px); }
+  88.750% { transform: translate(-30.48px,17.60px); }
+  95.000% { transform: translate(-0.00px,0.00px); }
+  100.000% { transform: translate(-0.00px,0.00px); }
+}
+.m5 { animation: m5 8s var(--ease) infinite; }
+@keyframes ex5 {
+  0.000% { transform: scaleY(0.001); opacity:0; }
+  20.000% { transform: scaleY(0.001); opacity:0; }
+  26.875% { transform: scaleY(1.100); opacity:1; }
+  88.750% { transform: scaleY(1.100); opacity:1; }
+  95.000% { transform: scaleY(0.001); opacity:0; }
+  100.000% { transform: scaleY(0.001); opacity:0; }
+}
+.ex5 { animation: ex5 8s var(--ease) infinite; }
+@keyframes es5 {
+  0.000% { transform: scaleX(0.001); opacity:0; }
+  20.000% { transform: scaleX(0.001); opacity:0; }
+  26.875% { transform: scaleX(1.100); opacity:1; }
+  88.750% { transform: scaleX(1.100); opacity:1; }
+  95.000% { transform: scaleX(0.001); opacity:0; }
+  100.000% { transform: scaleX(0.001); opacity:0; }
+}
+.es5 { animation: es5 8s var(--ease) infinite; }
+@keyframes c5 {
+  0.000% { transform: translateY(.6px); opacity:0; }
+  23.750% { transform: translateY(.6px); opacity:0; }
+  25.000% { transform: translateY(.6px); opacity:1; }
+  29.375% { transform: translateY(-.19px); opacity:1; }
+  88.750% { transform: translateY(-.19px); opacity:1; }
+  91.875% { transform: translateY(.6px); opacity:1; }
+  93.125% { transform: translateY(.6px); opacity:0; }
+  100.000% { transform: translateY(.6px); opacity:0; }
+}
+.c5 { animation: c5 8s var(--ease) infinite; }
+@keyframes d0 {
+  0.000% { opacity:1; }
+  37.500% { opacity:0; }
+  95.000% { opacity:1; }
+  100.000% { opacity:1; }
+}
+.d0 { animation: d0 8s steps(1,end) infinite; }
+@keyframes d1 {
+  0.000% { opacity:0; }
+  37.500% { opacity:1; }
+  46.250% { opacity:0; }
+  100.000% { opacity:0; }
+}
+.d1 { animation: d1 8s steps(1,end) infinite; }
+@keyframes d2 {
+  0.000% { opacity:0; }
+  46.250% { opacity:1; }
+  55.000% { opacity:0; }
+  100.000% { opacity:0; }
+}
+.d2 { animation: d2 8s steps(1,end) infinite; }
+@keyframes d3 {
+  0.000% { opacity:0; }
+  55.000% { opacity:1; }
+  63.750% { opacity:0; }
+  100.000% { opacity:0; }
+}
+.d3 { animation: d3 8s steps(1,end) infinite; }
+@keyframes d4 {
+  0.000% { opacity:0; }
+  63.750% { opacity:1; }
+  72.500% { opacity:0; }
+  100.000% { opacity:0; }
+}
+.d4 { animation: d4 8s steps(1,end) infinite; }
+@keyframes d5 {
+  0.000% { opacity:0; }
+  72.500% { opacity:1; }
+  88.750% { opacity:0; }
+  100.000% { opacity:0; }
+}
+.d5 { animation: d5 8s steps(1,end) infinite; }
+@keyframes beam {
+  0.000% { opacity:0; }
+  5.000% { opacity:0; }
+  12.500% { opacity:.45; }
+  26.250% { opacity:1; }
+  87.500% { opacity:1; }
+  93.750% { opacity:0; }
+  100.000% { opacity:0; }
+}
+.beam { animation: beam 8s var(--ease) infinite; }
+@media not all {
+  .mv, .ext-top, .ext-side, .card, .tm, .beam, .reel { animation: none !important; }
+}
+</style>
+</head>
+<body>
+<svg class="hero" viewBox="-139.7 -173.7 326.5 349.9" role="img" aria-label="Isometric library card-catalog cabinet with Learn drawers for Blog, Events and Research and Help drawers for Docs, Stories and Assessment, a reel-to-reel projector and bound reports on top. The drawers slide open one by one; the Assessment drawer stays open under the projector beam with a 30-minute timer counting down.">
+  <defs><linearGradient id="avnight" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#FF4B1F"/><stop offset="1" stop-color="#1FDDFF"/></linearGradient><linearGradient id="bg" gradientUnits="userSpaceOnUse" x1="51.3" y1="-66.4" x2="19.8" y2="79.0"><stop offset="0" stop-color="#FF4B1F" stop-opacity=".95"/><stop offset="1" stop-color="#1FDDFF" stop-opacity=".7"/></linearGradient><filter id="stip" x="-20%" y="-20%" width="140%" height="140%"><feTurbulence type="fractalNoise" baseFrequency="1.2" numOctaves="2" seed="5" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -2 1.7" result="d"/><feComposite in="SourceGraphic" in2="d" operator="in"/></filter><radialGradient id="grm" cx="50%" cy="50%" r="55%"><stop offset="0" stop-color="#fff"/><stop offset=".7" stop-color="#fff" stop-opacity=".5"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient><mask id="gridmask" maskContentUnits="objectBoundingBox"><rect width="1" height="1" fill="url(#grm)"/></mask></defs>
+  <path class="grid" mask="url(#gridmask)" d="M0.0 -448.0L-942.2 96.0M0.0 -448.0L1053.1 160.0M27.7 -432.0L-914.5 112.0M-27.7 -432.0L1025.4 176.0M55.4 -416.0L-886.8 128.0M-55.4 -416.0L997.7 192.0M83.1 -400.0L-859.1 144.0M-83.1 -400.0L969.9 208.0M110.9 -384.0L-831.4 160.0M-110.9 -384.0L942.2 224.0M138.6 -368.0L-803.7 176.0M-138.6 -368.0L914.5 240.0M166.3 -352.0L-776.0 192.0M-166.3 -352.0L886.8 256.0M194.0 -336.0L-748.2 208.0M-194.0 -336.0L859.1 272.0M221.7 -320.0L-720.5 224.0M-221.7 -320.0L831.4 288.0M249.4 -304.0L-692.8 240.0M-249.4 -304.0L803.7 304.0M277.1 -288.0L-665.1 256.0M-277.1 -288.0L776.0 320.0M304.8 -272.0L-637.4 272.0M-304.8 -272.0L748.2 336.0M332.6 -256.0L-609.7 288.0M-332.6 -256.0L720.5 352.0M360.3 -240.0L-582.0 304.0M-360.3 -240.0L692.8 368.0M388.0 -224.0L-554.3 320.0M-388.0 -224.0L665.1 384.0M415.7 -208.0L-526.5 336.0M-415.7 -208.0L637.4 400.0M443.4 -192.0L-498.8 352.0M-443.4 -192.0L609.7 416.0M471.1 -176.0L-471.1 368.0M-471.1 -176.0L582.0 432.0M498.8 -160.0L-443.4 384.0M-498.8 -160.0L554.3 448.0M526.5 -144.0L-415.7 400.0M-526.5 -144.0L526.5 464.0M554.3 -128.0L-388.0 416.0M-554.3 -128.0L498.8 480.0M582.0 -112.0L-360.3 432.0M-582.0 -112.0L471.1 496.0M609.7 -96.0L-332.6 448.0M-609.7 -96.0L443.4 512.0M637.4 -80.0L-304.8 464.0M-637.4 -80.0L415.7 528.0M665.1 -64.0L-277.1 480.0M-665.1 -64.0L388.0 544.0M692.8 -48.0L-249.4 496.0M-692.8 -48.0L360.3 560.0M720.5 -32.0L-221.7 512.0M-720.5 -32.0L332.6 576.0M748.2 -16.0L-194.0 528.0M-748.2 -16.0L304.8 592.0M776.0 0.0L-166.3 544.0M-776.0 0.0L277.1 608.0M803.7 16.0L-138.6 560.0M-803.7 16.0L249.4 624.0M831.4 32.0L-110.9 576.0M-831.4 32.0L221.7 640.0M859.1 48.0L-83.1 592.0M-859.1 48.0L194.0 656.0M886.8 64.0L-55.4 608.0M-886.8 64.0L166.3 672.0M914.5 80.0L-27.7 624.0M-914.5 80.0L138.6 688.0M942.2 96.0L0.0 640.0M-942.2 96.0L110.9 704.0M969.9 112.0L27.7 656.0M-969.9 112.0L83.1 720.0M997.7 128.0L55.4 672.0M-997.7 128.0L55.4 736.0M1025.4 144.0L83.1 688.0M-1025.4 144.0L27.7 752.0"/><polygon class="f-night" points="166.28,89.60 77.60,140.80 77.60,132.80 166.28,81.60"/><polygon class="f-paper" points="-88.68,44.80 77.60,140.80 77.60,132.80 -88.68,36.80"/><polygon class="f-white" points="0.00,-14.40 166.28,81.60 77.60,132.80 -88.68,36.80"/><polygon class="f-night" points="155.19,81.60 77.60,126.40 77.60,12.80 155.19,-32.00"/><polygon class="f-paper" points="-77.60,36.80 77.60,126.40 77.60,12.80 -77.60,-76.80"/><polygon class="f-white" points="0.00,-121.60 155.19,-32.00 77.60,12.80 -77.60,-76.80"/><g transform="matrix(27.7128,16.0000,0,32.0000,-77.60,-76.80)"><text x="1.43" y=".42" class="lbl hd">LEARN</text><text x="4.17" y=".42" class="lbl hd">HELP</text><path class="ink-thin" vector-effect="non-scaling-stroke" d="M.3 .6H2.6M3.0 .6H5.3M2.8 .2V3.40"/></g><g class="dw"><g transform="matrix(27.7128,16.0000,-27.7128,16.0000,-69.28,16.00)"><rect class="ext-top ex2" x="0" y="0" width="2.25" height="1" vector-effect="non-scaling-stroke"/></g><g transform="matrix(-27.7128,16.0000,0,32.0000,-6.93,52.00)"><rect class="ext-side es2" x="0" y="0" width="1" height="0.92" vector-effect="non-scaling-stroke"/></g><g class="mv m2"><g transform="matrix(27.7128,16.0000,0,32.0000,-47.11,3.20)"><g class="card c2"><rect x="-.05" y="0" width="1.25" height=".62" rx=".05" class="f-white" vector-effect="non-scaling-stroke"/><path class="ink-thin" vector-effect="non-scaling-stroke" d="M.15 .18H.95M.15 .32H.7"/></g></g><g transform="matrix(27.7128,16.0000,0,32.0000,-69.28,16.00)"><rect x="0" y="0" width="2.25" height="0.92" rx=".06" class="f-white" vector-effect="non-scaling-stroke"/><rect x=".32" y=".16" width="1.61" height=".36" rx=".05" class="brass" vector-effect="non-scaling-stroke"/><text x="1.125" y=".41" class="lbl">RESEARCH</text><path class="f-night" vector-effect="non-scaling-stroke" d="M.8 .66H1.45V.74Q1.45 .8 1.39 .8H.86Q.8 .8 .8 .74Z"/></g></g></g><g class="dw"><g transform="matrix(27.7128,16.0000,-27.7128,16.0000,-69.28,-16.00)"><rect class="ext-top ex1" x="0" y="0" width="2.25" height="1" vector-effect="non-scaling-stroke"/></g><g transform="matrix(-27.7128,16.0000,0,32.0000,-6.93,20.00)"><rect class="ext-side es1" x="0" y="0" width="1" height="0.92" vector-effect="non-scaling-stroke"/></g><g class="mv m1"><g transform="matrix(27.7128,16.0000,0,32.0000,-47.11,-28.80)"><g class="card c1"><rect x="-.05" y="0" width="1.25" height=".62" rx=".05" class="f-white" vector-effect="non-scaling-stroke"/><path class="ink-thin" vector-effect="non-scaling-stroke" d="M.15 .18H.95M.15 .32H.7"/></g></g><g transform="matrix(27.7128,16.0000,0,32.0000,-69.28,-16.00)"><rect x="0" y="0" width="2.25" height="0.92" rx=".06" class="f-white" vector-effect="non-scaling-stroke"/><rect x=".32" y=".16" width="1.61" height=".36" rx=".05" class="brass" vector-effect="non-scaling-stroke"/><text x="1.125" y=".41" class="lbl">EVENTS</text><path class="f-night" vector-effect="non-scaling-stroke" d="M.8 .66H1.45V.74Q1.45 .8 1.39 .8H.86Q.8 .8 .8 .74Z"/></g></g></g><g class="dw"><g transform="matrix(27.7128,16.0000,-27.7128,16.0000,6.93,28.00)"><rect class="ext-top ex4" x="0" y="0" width="2.25" height="1" vector-effect="non-scaling-stroke"/></g><g transform="matrix(-27.7128,16.0000,0,32.0000,69.28,64.00)"><rect class="ext-side es4" x="0" y="0" width="1" height="0.92" vector-effect="non-scaling-stroke"/></g><g class="mv m4"><g transform="matrix(27.7128,16.0000,0,32.0000,29.10,15.20)"><g class="card c4"><rect x="-.05" y="0" width="1.25" height=".62" rx=".05" class="f-white" vector-effect="non-scaling-stroke"/><path class="ink-thin" vector-effect="non-scaling-stroke" d="M.15 .18H.95M.15 .32H.7"/></g></g><g transform="matrix(27.7128,16.0000,0,32.0000,6.93,28.00)"><rect x="0" y="0" width="2.25" height="0.92" rx=".06" class="f-white" vector-effect="non-scaling-stroke"/><rect x=".32" y=".16" width="1.61" height=".36" rx=".05" class="brass" vector-effect="non-scaling-stroke"/><text x="1.125" y=".41" class="lbl">STORIES</text><path class="f-night" vector-effect="non-scaling-stroke" d="M.8 .66H1.45V.74Q1.45 .8 1.39 .8H.86Q.8 .8 .8 .74Z"/></g></g></g><g class="dw"><g transform="matrix(27.7128,16.0000,-27.7128,16.0000,-69.28,-48.00)"><rect class="ext-top ex0" x="0" y="0" width="2.25" height="1" vector-effect="non-scaling-stroke"/></g><g transform="matrix(-27.7128,16.0000,0,32.0000,-6.93,-12.00)"><rect class="ext-side es0" x="0" y="0" width="1" height="0.92" vector-effect="non-scaling-stroke"/></g><g class="mv m0"><g transform="matrix(27.7128,16.0000,0,32.0000,-47.11,-60.80)"><g class="card c0"><rect x="-.05" y="0" width="1.25" height=".62" rx=".05" class="f-white" vector-effect="non-scaling-stroke"/><path class="ink-thin" vector-effect="non-scaling-stroke" d="M.15 .18H.95M.15 .32H.7"/></g></g><g transform="matrix(27.7128,16.0000,0,32.0000,-69.28,-48.00)"><rect x="0" y="0" width="2.25" height="0.92" rx=".06" class="f-white" vector-effect="non-scaling-stroke"/><rect x=".32" y=".16" width="1.61" height=".36" rx=".05" class="brass" vector-effect="non-scaling-stroke"/><text x="1.125" y=".41" class="lbl">BLOG</text><path class="f-night" vector-effect="non-scaling-stroke" d="M.8 .66H1.45V.74Q1.45 .8 1.39 .8H.86Q.8 .8 .8 .74Z"/></g></g></g><g class="dw"><g transform="matrix(27.7128,16.0000,-27.7128,16.0000,6.93,-4.00)"><rect class="ext-top ex3" x="0" y="0" width="2.25" height="1" vector-effect="non-scaling-stroke"/></g><g transform="matrix(-27.7128,16.0000,0,32.0000,69.28,32.00)"><rect class="ext-side es3" x="0" y="0" width="1" height="0.92" vector-effect="non-scaling-stroke"/></g><g class="mv m3"><g transform="matrix(27.7128,16.0000,0,32.0000,29.10,-16.80)"><g class="card c3"><rect x="-.05" y="0" width="1.25" height=".62" rx=".05" class="f-white" vector-effect="non-scaling-stroke"/><path class="ink-thin" vector-effect="non-scaling-stroke" d="M.15 .18H.95M.15 .32H.7"/></g></g><g transform="matrix(27.7128,16.0000,0,32.0000,6.93,-4.00)"><rect x="0" y="0" width="2.25" height="0.92" rx=".06" class="f-white" vector-effect="non-scaling-stroke"/><rect x=".32" y=".16" width="1.61" height=".36" rx=".05" class="brass" vector-effect="non-scaling-stroke"/><text x="1.125" y=".41" class="lbl">DOCS</text><path class="f-night" vector-effect="non-scaling-stroke" d="M.8 .66H1.45V.74Q1.45 .8 1.39 .8H.86Q.8 .8 .8 .74Z"/></g></g></g><g class="beam"><path d="M51.3 -71.4L-20.2 79.0A40 18 0 0 0 59.8 79.0L51.3 -61.4Z" fill="url(#bg)" filter="url(#stip)"/></g><g class="dw"><g transform="matrix(27.7128,16.0000,-27.7128,16.0000,6.93,60.00)"><rect class="ext-top ex5" x="0" y="0" width="2.25" height="1" vector-effect="non-scaling-stroke"/></g><g transform="matrix(-27.7128,16.0000,0,32.0000,69.28,96.00)"><rect class="ext-side es5" x="0" y="0" width="1" height="0.92" vector-effect="non-scaling-stroke"/></g><g class="mv m5"><g transform="matrix(27.7128,16.0000,0,32.0000,29.10,47.20)"><g class="card c5"><rect x="-.05" y="0" width="1.25" height=".62" rx=".05" class="f-white" vector-effect="non-scaling-stroke"/><text x=".57" y=".42" class="tm d0">30 MIN</text><text x=".57" y=".42" class="tm d1">29 MIN</text><text x=".57" y=".42" class="tm d2">28 MIN</text><text x=".57" y=".42" class="tm d3">27 MIN</text><text x=".57" y=".42" class="tm d4">26 MIN</text><text x=".57" y=".42" class="tm d5">25 MIN</text></g></g><g transform="matrix(27.7128,16.0000,0,32.0000,6.93,60.00)"><rect x="0" y="0" width="2.25" height="0.92" rx=".06" class="f-white" vector-effect="non-scaling-stroke"/><rect x=".32" y=".16" width="1.61" height=".36" rx=".05" class="brass" vector-effect="non-scaling-stroke"/><text x="1.125" y=".41" class="lbl">ASSESSMENT</text><path class="f-night" vector-effect="non-scaling-stroke" d="M.8 .66H1.45V.74Q1.45 .8 1.39 .8H.86Q.8 .8 .8 .74Z"/></g></g></g><g transform="matrix(27.7128,16.0000,0,32.0000,-77.60,-76.80)"></g><polygon class="f-night" points="121.94,-32.00 94.22,-16.00 94.22,-21.12 121.94,-37.12"/><polygon class="f-paper" points="55.43,-38.40 94.22,-16.00 94.22,-21.12 55.43,-43.52"/><polygon class="f-white" points="83.14,-59.52 121.94,-37.12 94.22,-21.12 55.43,-43.52"/><polygon class="f-night" points="121.94,-37.76 94.22,-21.76 94.22,-26.88 121.94,-42.88"/><polygon class="f-white" points="55.43,-44.16 94.22,-21.76 94.22,-26.88 55.43,-49.28"/><polygon class="f-white" points="83.14,-65.28 121.94,-42.88 94.22,-26.88 55.43,-49.28"/><polygon class="f-night" points="121.94,-43.52 94.22,-27.52 94.22,-32.64 121.94,-48.64"/><polygon class="f-paper" points="55.43,-49.92 94.22,-27.52 94.22,-32.64 55.43,-55.04"/><polygon class="f-white" points="83.14,-71.04 121.94,-48.64 94.22,-32.64 55.43,-55.04"/><polygon class="f-night" points="58.20,-68.80 24.94,-49.60 24.94,-75.20 58.20,-94.40"/><polygon class="f-paper" points="-36.03,-84.80 24.94,-49.60 24.94,-75.20 -36.03,-110.40"/><polygon class="f-white" points="-2.77,-129.60 58.20,-94.40 24.94,-75.20 -36.03,-110.40"/><polygon class="f-night" points="56.81,-64.80 45.73,-58.40 45.73,-68.00 56.81,-74.40"/><polygon class="f-night" points="36.03,-64.00 45.73,-58.40 45.73,-68.00 36.03,-73.60"/><polygon class="f-white" points="47.11,-80.00 56.81,-74.40 45.73,-68.00 36.03,-73.60"/><g transform="matrix(27.7128,16.0000,0,32.0000,-6.93,-132.00)"><circle r=".5" class="f-white" vector-effect="non-scaling-stroke"/><g class="reel"><path class="ink-line" vector-effect="non-scaling-stroke" d="M0 0L0.420 0.000"/><path class="ink-line" vector-effect="non-scaling-stroke" d="M0 0L-0.210 0.364"/><path class="ink-line" vector-effect="non-scaling-stroke" d="M0 0L-0.210 -0.364"/></g><circle r=".1" class="f-night" vector-effect="non-scaling-stroke"/></g><g transform="matrix(27.7128,16.0000,0,32.0000,26.33,-112.80)"><circle r=".5" class="f-white" vector-effect="non-scaling-stroke"/><g class="reel"><path class="ink-line" vector-effect="non-scaling-stroke" d="M0 0L0.420 0.000"/><path class="ink-line" vector-effect="non-scaling-stroke" d="M0 0L-0.210 0.364"/><path class="ink-line" vector-effect="non-scaling-stroke" d="M0 0L-0.210 -0.364"/></g><circle r=".1" class="f-night" vector-effect="non-scaling-stroke"/></g>
+</svg>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Isometric partner console with six client tenants lighting up and a white-label report rising</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&display=swap">
+<style>
+html,body{margin:0;background:transparent;height:100%}body{display:flex;align-items:center;justify-content:center}
+svg{width:100%;height:100%;display:block;overflow:visible}
+.f-white,.f-paper,.f-grad,.f-ink{stroke:#141414;stroke-width:1.5;stroke-linejoin:round;stroke-linecap:round;vector-effect:non-scaling-stroke}
+.f-white{fill:#FFFFFF}.f-paper{fill:#F5F3F0}.f-grad{fill:url(#isoG)}.f-ink{fill:#141414}
+.ink-line{fill:none;stroke:#141414;stroke-width:1.2;vector-effect:non-scaling-stroke}
+.ink-thin{fill:none;stroke:#141414;stroke-width:1;opacity:.35;vector-effect:non-scaling-stroke}
+.dash{fill:none;stroke:#141414;stroke-width:1.2;stroke-dasharray:3 4;opacity:.6;vector-effect:non-scaling-stroke}
+.lbl{font-family:"JetBrains Mono",ui-monospace,monospace;font-weight:500;fill:#141414}
+.lamp{fill:#F5F3F0;stroke:#141414;stroke-width:1.2;vector-effect:non-scaling-stroke}
+@media not all{*{animation:none!important}}
+</style></head><body><svg id="s" role="img" aria-label="Isometric partner console with six client tenants lighting up and a white-label report rising"></svg>
+<script src="iso-kit.js"></script>
+<style>
+.cl{animation:pop 7s cubic-bezier(.22,1,.36,1) infinite}
+@keyframes pop{0%,4%{transform:translateY(0)}9%{transform:translateY(-14px)}14%,100%{transform:translateY(0)}}
+.lk{animation:lit 7s steps(1,end) infinite}
+@keyframes lit{0%,8%{fill:#F5F3F0}9%,92%{fill:url(#isoG)}93%,100%{fill:#F5F3F0}}
+.sheet{animation:rise 7s cubic-bezier(.22,1,.36,1) infinite}
+@keyframes rise{0%,50%{transform:translateY(70px)}64%,90%{transform:translateY(0)}100%{transform:translateY(70px)}}
+.tagA{animation:tg 7s ease infinite}
+@keyframes tg{0%,62%{opacity:0;transform:translateY(6px)}68%,92%{opacity:1;transform:none}100%{opacity:0}}
+</style>
+<script>
+var s=new Iso.Scene(document.getElementById('s'),30),P=s.P.bind(s);
+s.ell(4,3,0,6.4,'',s.root,{fill:'url(#isoGlow)',stroke:'none'});
+var a0=P(0,0,0.6),a1=P(8.4,0,0.6),cp=Iso.mk('clipPath',{id:'shc'},s.defs);Iso.mk('polygon',{points:[[a0[0]-400,a0[1]-400*0.577],[a1[0]+40,a1[1]+40*0.577],[a1[0]+40,-2000],[a0[0]-400,-2000]].map(function(q){return q.join(',')}).join(' ')},cp);var shw=s.g('');shw.setAttribute('clip-path','url(#shc)');var sh=s.g('sheet',shw);s.box(2.4,-0.4,0.6,5.2,0.14,5.2,{parent:sh,left:'f-white',right:'f-paper'});
+s.leftText(2.75,-0.26,5.45,'WHITE-LABEL REPORT',.26,{},sh);
+[[5.0,3.8],[4.6,2.8]].forEach(function(r){s.line(P(2.75,-0.26,r[0]),P(2.75+r[1],-0.26,r[0]),'ink-line',sh);});
+[1.0,1.6,1.25,2.0,0.9,1.4].forEach(function(h,i){var x=2.85+i*0.7;s.poly([P(x,-0.26,2.7+h*.7),P(x+0.4,-0.26,2.7+h*.7),P(x+0.4,-0.26,2.7),P(x,-0.26,2.7)],'f-grad',sh);});
+s.box(0,0,0,8.4,6.2,0.6);
+s.leftText(0.4,6.2,0.42,'AVISTAR · PARTNER CONSOLE',.26);
+s.leftText(8.0,6.2,0.42,'14 TENANTS',.22,{anchor:'end'});
+var C=[];for(var j=0;j<2;j++)for(var i=0;i<3;i++)C.push({x:0.55+i*2.65,y:0.6+j*2.75,k:j*3+i});C.sort(function(a,b){return (a.x+a.y)-(b.x+b.y);});C.forEach(function(c){var x=c.x,y=c.y,k=c.k,g=s.g('cl');g.style.animationDelay=(k*0.42)+'s';
+s.box(x,y,0.6,2.0,2.0,1.0,{parent:g});
+s.topText(x+0.25,y+0.6,1.6,'CLIENT '+(k+1),.24,{ls:.02},g);
+var lp=s.ell(x+1.45,y+1.4,1.6,0.26,'lamp lk',g);lp.style.animationDelay=(k*0.42)+'s';
+s.line(P(x+0.25,y+1.2,1.6),P(x+1.0,y+1.2,1.6),'ink-line',g);s.line(P(x+0.25,y+1.5,1.6),P(x+0.75,y+1.5,1.6),'ink-line',g);
+});
+var t=s.flag(P(7.4,-0.26,5.8),30,'MSSP · ON YOUR BRAND','tagA');
+s.fit(18);
+</script></body></html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Isometric integration hub: cloud and tool blocks around an Avistar core, with data packets flowing in</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&display=swap">
+<style>
+html,body{margin:0;background:transparent;height:100%}body{display:flex;align-items:center;justify-content:center}
+svg{width:100%;height:100%;display:block;overflow:visible}
+.f-white,.f-paper,.f-grad,.f-ink{stroke:#141414;stroke-width:1.5;stroke-linejoin:round;stroke-linecap:round;vector-effect:non-scaling-stroke}
+.f-white{fill:#FFFFFF}.f-paper{fill:#F5F3F0}.f-grad{fill:url(#isoG)}.f-ink{fill:#141414}
+.ink-line{fill:none;stroke:#141414;stroke-width:1.2;vector-effect:non-scaling-stroke}
+.ink-thin{fill:none;stroke:#141414;stroke-width:1;opacity:.35;vector-effect:non-scaling-stroke}
+.dash{fill:none;stroke:#141414;stroke-width:1.2;stroke-dasharray:3 4;opacity:.6;vector-effect:non-scaling-stroke}
+.lbl{font-family:"JetBrains Mono",ui-monospace,monospace;font-weight:500;fill:#141414}
+.lamp{fill:#F5F3F0;stroke:#141414;stroke-width:1.2;vector-effect:non-scaling-stroke}
+@media not all{*{animation:none!important}}
+</style></head><body><svg id="s" role="img" aria-label="Isometric integration hub: cloud and tool blocks around an Avistar core, with data packets flowing in"></svg>
+<script src="iso-kit.js"></script>
+<style>
+.pv{animation:bob 6s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.lk{animation:blink 2.4s steps(1,end) infinite}
+@keyframes blink{0%,60%{fill:#F5F3F0}61%,100%{fill:url(#isoG)}}
+.core{animation:core 3s ease-in-out infinite}
+@keyframes core{0%,100%{opacity:.55}50%{opacity:1}}
+</style>
+<script>
+var s=new Iso.Scene(document.getElementById('s'),24),P=s.P.bind(s);
+s.disc(0,0,0,8,0.5);
+s.ell(0,0,0.5,4.2,'core',s.root,{fill:'url(#isoGlow)',stroke:'none'});
+for(var r=2.5;r<8;r+=1.8)s.ell(0,0,0.5,r,'ink-thin');
+var N=['AWS','AZURE','GCP','OKTA','SLACK','JIRA'],pos=N.map(function(n,i){var a=(i*60+15)*Math.PI/180;return {n:n,x:Math.cos(a)*5.6,y:Math.sin(a)*5.6,i:i};});
+var lines=s.g('');pos.forEach(function(p){var a=P(p.x,p.y,0.5),b=P(0,0,0.5);var id='ln'+p.i;s.line(a,b,'dash',lines,{id:id});
+for(var q=0;q<2;q++){var c=Iso.mk('rect',{x:-3,y:-3,width:6,height:6,fill:(p.i+q)%2?'#1FDDFF':'#FF4B1F'},lines);var am=Iso.mk('animateMotion',{dur:'2.4s',begin:(p.i*0.4+q*1.2)+'s',repeatCount:'indefinite',keyPoints:'0;1',keyTimes:'0;1',calcMode:'linear'},c);Iso.mk('mpath',{href:'#'+id},am);}});
+var order=pos.concat([{core:1,x:0,y:0}]).sort(function(a,b){return (a.x+a.y)-(b.x+b.y);});
+order.forEach(function(p){if(p.core){s.box(-1.4,-1.4,0.5,2.8,2.8,2.6);s.leftText(-1.1,1.4,2.6,'AVISTAR',.4,{});s.leftText(-1.1,1.4,1.9,'IDENTITY GRAPH',.22);s.topText(-0.9,-0.55,3.1,'ONE GRAPH',.3);var lp=s.ell(0.6,0.6,3.1,0.32,'lamp lk');return;}
+var g=s.g('pv');g.style.animationDelay=(p.i*0.5)+'s';s.box(p.x-0.85,p.y-0.85,0.5,1.7,1.7,1.2,{parent:g});s.topText(p.x-0.6,p.y-0.1,1.7,p.n,.34,{},g);var lp=s.ell(p.x+0.45,p.y+0.45,1.7,0.18,'lamp lk',g);lp.style.animationDelay=(p.i*0.4)+'s';});
+s.fit(14);
+</script></body></html>

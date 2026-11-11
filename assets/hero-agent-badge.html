@@ -1,0 +1,223 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Avistar Agent Badge</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&family=Zen+Dots&display=swap">
+<style>
+/* Layout: one isometric ID reader centred on paper; four credential cards assemble on a robot agent in brand-gradient cards, a shadow AI cube waits to the side */
+:root {
+  --paper: #F5F3F0;
+  --white: #FFFFFF;
+  --ink: #141414;
+  --night: url(#avnight);
+  --signal: #FF4B1F;
+  --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --zen: "Zen Dots", "JetBrains Mono", ui-monospace, monospace;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  
+}
+* { box-sizing: border-box; }
+html, body { background: transparent; color: var(--ink); }
+body {
+  margin: 0; min-height: 100%;
+  padding: 0;
+  display: flex; justify-content: center;
+}
+svg.hero { width: 100%; height: auto; max-width: 100%; display: block; overflow: visible; }
+
+.grid { display: none; }
+.f-white, .f-paper, .f-night, .clamp {
+  stroke: var(--ink); stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke;
+}
+.f-white { fill: var(--white); }
+.f-grad { fill: url(#cardg); stroke: var(--ink); stroke-width: 1.5; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.f-paper, .clamp { fill: var(--paper); }
+.f-night { fill: var(--night); }
+.s-dash { stroke-dasharray: 4 3; }
+.ink-line, .ic { fill: none; stroke: var(--ink); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.dot, .bar { fill: var(--ink); }
+.lbl { font-family: var(--mono); font-weight: 500; font-size: .3px; letter-spacing: .06px; fill: var(--ink); }
+.tiny { font-family: var(--mono); font-weight: 500; font-size: .2px; letter-spacing: .05px; fill: var(--ink); }
+.tiny.end { text-anchor: end; } .tiny.mid { text-anchor: middle; } .tiny.big { font-size: .23px; } .tiny.inv { fill: var(--white); opacity: .75; }
+.nixie { font-family: var(--zen); font-size: .42px; text-anchor: middle; fill: var(--white); opacity: 0; }
+.tagf { fill: var(--signal); stroke: var(--ink); stroke-width: 1.5; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.tagt { font-family: var(--mono); font-weight: 500; font-size: .26px; letter-spacing: .05px; fill: var(--white); }
+
+/* resting state, also the reduced-motion state: badge assembled, access short, three days left, shadow AI flagged */
+.d3 { opacity: 1; }
+.bar { transform: scaleX(.3); }
+.clamp { fill: var(--night); }
+
+@keyframes drop0 {
+  0.000% { transform: translateY(-53.4px); }
+  12.857% { transform: translateY(-53.4px); }
+  22.143% { transform: translateY(0); }
+  71.429% { transform: translateY(0); }
+  82.143% { transform: translateY(-53.4px); }
+  100.000% { transform: translateY(-53.4px); }
+}
+.k0 { animation: drop0 7.0s var(--ease) infinite; }
+@keyframes lamp0 {
+  0.000% { fill: var(--paper); }
+  21.857% { fill: var(--paper); }
+  22.143% { fill: var(--night); }
+  23.000% { fill: var(--paper); }
+  23.857% { fill: var(--night); }
+  71.429% { fill: var(--paper); }
+  100.000% { fill: var(--paper); }
+}
+.cl0 { animation: lamp0 7.0s steps(1,end) infinite; }
+@keyframes drop1 {
+  0.000% { transform: translateY(-87.9px); }
+  14.286% { transform: translateY(-87.9px); }
+  23.571% { transform: translateY(0); }
+  70.000% { transform: translateY(0); }
+  80.714% { transform: translateY(-87.9px); }
+  100.000% { transform: translateY(-87.9px); }
+}
+.k1 { animation: drop1 7.0s var(--ease) infinite; }
+@keyframes lamp1 {
+  0.000% { fill: var(--paper); }
+  23.286% { fill: var(--paper); }
+  23.571% { fill: var(--night); }
+  24.429% { fill: var(--paper); }
+  25.286% { fill: var(--night); }
+  70.000% { fill: var(--paper); }
+  100.000% { fill: var(--paper); }
+}
+.cl1 { animation: lamp1 7.0s steps(1,end) infinite; }
+@keyframes drop2 {
+  0.000% { transform: translateY(-122.4px); }
+  15.714% { transform: translateY(-122.4px); }
+  25.000% { transform: translateY(0); }
+  68.571% { transform: translateY(0); }
+  79.286% { transform: translateY(-122.4px); }
+  100.000% { transform: translateY(-122.4px); }
+}
+.k2 { animation: drop2 7.0s var(--ease) infinite; }
+@keyframes lamp2 {
+  0.000% { fill: var(--paper); }
+  24.714% { fill: var(--paper); }
+  25.000% { fill: var(--night); }
+  25.857% { fill: var(--paper); }
+  26.714% { fill: var(--night); }
+  68.571% { fill: var(--paper); }
+  100.000% { fill: var(--paper); }
+}
+.cl2 { animation: lamp2 7.0s steps(1,end) infinite; }
+@keyframes drop3 {
+  0.000% { transform: translateY(-156.9px); }
+  17.143% { transform: translateY(-156.9px); }
+  26.429% { transform: translateY(0); }
+  67.143% { transform: translateY(0); }
+  77.857% { transform: translateY(-156.9px); }
+  100.000% { transform: translateY(-156.9px); }
+}
+.k3 { animation: drop3 7.0s var(--ease) infinite; }
+@keyframes lamp3 {
+  0.000% { fill: var(--paper); }
+  26.143% { fill: var(--paper); }
+  26.429% { fill: var(--night); }
+  27.286% { fill: var(--paper); }
+  28.143% { fill: var(--night); }
+  67.143% { fill: var(--paper); }
+  100.000% { fill: var(--paper); }
+}
+.cl3 { animation: lamp3 7.0s steps(1,end) infinite; }
+@keyframes bar {
+  0.000% { transform: scaleX(1); }
+  27.857% { transform: scaleX(1); }
+  38.571% { transform: scaleX(.3); }
+  90.000% { transform: scaleX(.3); }
+  97.857% { transform: scaleX(1); }
+  100.000% { transform: scaleX(1); }
+}
+@keyframes dg0 {
+  0.000% { opacity:0; }
+  63.571% { opacity:1; }
+  91.429% { opacity:0; }
+  100.000% { opacity:0; }
+}
+.d0 { animation: dg0 7.0s steps(1,end) infinite; }
+@keyframes dg1 {
+  0.000% { opacity:0; }
+  60.000% { opacity:1; }
+  63.571% { opacity:0; }
+  100.000% { opacity:0; }
+}
+.d1 { animation: dg1 7.0s steps(1,end) infinite; }
+@keyframes dg2 {
+  0.000% { opacity:0; }
+  56.429% { opacity:1; }
+  60.000% { opacity:0; }
+  100.000% { opacity:0; }
+}
+.d2 { animation: dg2 7.0s steps(1,end) infinite; }
+@keyframes dg3 {
+  0.000% { opacity:0; }
+  52.857% { opacity:1; }
+  56.429% { opacity:0; }
+  100.000% { opacity:0; }
+}
+.d3 { animation: dg3 7.0s steps(1,end) infinite; }
+@keyframes dg4 {
+  0.000% { opacity:0; }
+  49.286% { opacity:1; }
+  52.857% { opacity:0; }
+  100.000% { opacity:0; }
+}
+.d4 { animation: dg4 7.0s steps(1,end) infinite; }
+@keyframes dg5 {
+  0.000% { opacity:0; }
+  45.714% { opacity:1; }
+  49.286% { opacity:0; }
+  100.000% { opacity:0; }
+}
+.d5 { animation: dg5 7.0s steps(1,end) infinite; }
+@keyframes dg6 {
+  0.000% { opacity:0; }
+  42.143% { opacity:1; }
+  45.714% { opacity:0; }
+  100.000% { opacity:0; }
+}
+.d6 { animation: dg6 7.0s steps(1,end) infinite; }
+@keyframes dg7 {
+  0.000% { opacity:1; }
+  42.143% { opacity:0; }
+  91.429% { opacity:1; }
+  100.000% { opacity:1; }
+}
+.d7 { animation: dg7 7.0s steps(1,end) infinite; }
+@keyframes flick {
+  0.000% { opacity:1; }
+  44.286% { opacity:1; }
+  45.143% { opacity:.15; }
+  46.286% { opacity:1; }
+  47.143% { opacity:.3; }
+  48.286% { opacity:1; }
+  100.000% { opacity:1; }
+}
+@keyframes flag {
+  0.000% { opacity:0; transform: translateY(6px); }
+  49.286% { opacity:0; transform: translateY(6px); }
+  55.714% { opacity:1; transform: translateY(0); }
+  90.000% { opacity:1; transform: translateY(0); }
+  97.143% { opacity:0; transform: translateY(6px); }
+  100.000% { opacity:0; transform: translateY(6px); }
+}
+.bar { animation: bar 7s var(--ease) infinite; }
+.shadow { animation: flick 7s steps(1, end) infinite; }
+.tag { animation: flag 7s var(--ease) infinite; }
+
+@media not all {
+  .card, .clamp, .bar, .shadow, .tag, .nixie { animation: none !important; }
+}
+</style>
+
+<svg class="hero" viewBox="-218.0 -229.0 469.7 455.3" role="img" aria-label="Isometric ID-card reader with a small robot agent on it. Four cards, owner, role, access and end date, assemble on the agent while a days-left readout counts down. A separate Shadow AI cube is flagged.">
+  <defs><linearGradient id="avnight" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#FF4B1F"/><stop offset="1" stop-color="#1FDDFF"/></linearGradient><linearGradient id="cardg" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#FF4B1F"/><stop offset="1" stop-color="#1FDDFF"/></linearGradient><radialGradient id="grm" cx="50%" cy="50%" r="55%"><stop offset="0" stop-color="#fff"/><stop offset=".7" stop-color="#fff" stop-opacity=".5"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient><mask id="gridmask" maskContentUnits="objectBoundingBox"><rect width="1" height="1" fill="url(#grm)"/></mask></defs>
+  <path class="grid" mask="url(#gridmask)" d="M0.0 -420.0L-935.3 120.0M0.0 -420.0L1039.2 180.0M26.0 -405.0L-909.3 135.0M-26.0 -405.0L1013.2 195.0M52.0 -390.0L-883.3 150.0M-52.0 -390.0L987.3 210.0M77.9 -375.0L-857.4 165.0M-77.9 -375.0L961.3 225.0M103.9 -360.0L-831.4 180.0M-103.9 -360.0L935.3 240.0M129.9 -345.0L-805.4 195.0M-129.9 -345.0L909.3 255.0M155.9 -330.0L-779.4 210.0M-155.9 -330.0L883.3 270.0M181.9 -315.0L-753.4 225.0M-181.9 -315.0L857.4 285.0M207.8 -300.0L-727.5 240.0M-207.8 -300.0L831.4 300.0M233.8 -285.0L-701.5 255.0M-233.8 -285.0L805.4 315.0M259.8 -270.0L-675.5 270.0M-259.8 -270.0L779.4 330.0M285.8 -255.0L-649.5 285.0M-285.8 -255.0L753.4 345.0M311.8 -240.0L-623.5 300.0M-311.8 -240.0L727.5 360.0M337.7 -225.0L-597.6 315.0M-337.7 -225.0L701.5 375.0M363.7 -210.0L-571.6 330.0M-363.7 -210.0L675.5 390.0M389.7 -195.0L-545.6 345.0M-389.7 -195.0L649.5 405.0M415.7 -180.0L-519.6 360.0M-415.7 -180.0L623.5 420.0M441.7 -165.0L-493.6 375.0M-441.7 -165.0L597.6 435.0M467.7 -150.0L-467.7 390.0M-467.7 -150.0L571.6 450.0M493.6 -135.0L-441.7 405.0M-493.6 -135.0L545.6 465.0M519.6 -120.0L-415.7 420.0M-519.6 -120.0L519.6 480.0M545.6 -105.0L-389.7 435.0M-545.6 -105.0L493.6 495.0M571.6 -90.0L-363.7 450.0M-571.6 -90.0L467.7 510.0M597.6 -75.0L-337.7 465.0M-597.6 -75.0L441.7 525.0M623.5 -60.0L-311.8 480.0M-623.5 -60.0L415.7 540.0M649.5 -45.0L-285.8 495.0M-649.5 -45.0L389.7 555.0M675.5 -30.0L-259.8 510.0M-675.5 -30.0L363.7 570.0M701.5 -15.0L-233.8 525.0M-701.5 -15.0L337.7 585.0M727.5 0.0L-207.8 540.0M-727.5 0.0L311.8 600.0M753.4 15.0L-181.9 555.0M-753.4 15.0L285.8 615.0M779.4 30.0L-155.9 570.0M-779.4 30.0L259.8 630.0M805.4 45.0L-129.9 585.0M-805.4 45.0L233.8 645.0M831.4 60.0L-103.9 600.0M-831.4 60.0L207.8 660.0M857.4 75.0L-77.9 615.0M-857.4 75.0L181.9 675.0M883.3 90.0L-52.0 630.0M-883.3 90.0L155.9 690.0M909.3 105.0L-26.0 645.0M-909.3 105.0L129.9 705.0M935.3 120.0L0.0 660.0M-935.3 120.0L103.9 720.0M961.3 135.0L26.0 675.0M-961.3 135.0L77.9 735.0"/><polygon class="f-night"  points="129.90,75.00 0.00,150.00 0.00,120.00 129.90,45.00"/><polygon class="f-paper"  points="-129.90,75.00 0.00,150.00 0.00,120.00 -129.90,45.00"/><polygon class="f-white"  points="0.00,-30.00 129.90,45.00 0.00,120.00 -129.90,45.00"/><g transform="matrix(25.9808,15.0000,0,-30.0000,-129.90,75.00)"><rect x=".45" y=".42" width="1.9" height=".18" rx=".09" class="f-night" vector-effect="non-scaling-stroke"/></g><g transform="matrix(25.9808,15.0000,-25.9808,15.0000,-114.32,68.40)"><rect x="0" y="-.05" width="1.6" height=".95" rx=".06" class="f-white" vector-effect="non-scaling-stroke"/><rect x="0.14" y="0.20" width=".07" height=".12" class="dot"/><rect x="0.29" y="0.20" width=".07" height=".12" class="dot"/><rect x="0.89" y="0.20" width=".07" height=".12" class="dot"/><rect x="1.04" y="0.20" width=".07" height=".12" class="dot"/><rect x="0.29" y="0.40" width=".07" height=".12" class="dot"/><rect x="0.44" y="0.40" width=".07" height=".12" class="dot"/><rect x="1.04" y="0.40" width=".07" height=".12" class="dot"/><rect x="1.19" y="0.40" width=".07" height=".12" class="dot"/><rect x="0.44" y="0.60" width=".07" height=".12" class="dot"/><rect x="0.59" y="0.60" width=".07" height=".12" class="dot"/><rect x="1.19" y="0.60" width=".07" height=".12" class="dot"/><rect x="1.34" y="0.60" width=".07" height=".12" class="dot"/></g><g transform="matrix(25.9808,15.0000,-25.9808,15.0000,0.00,-30.00)"><rect x="0.50" y="4.25" width=".24" height=".24" rx=".05" class="clamp cl0" vector-effect="non-scaling-stroke"/><rect x="0.88" y="4.25" width=".24" height=".24" rx=".05" class="clamp cl1" vector-effect="non-scaling-stroke"/><rect x="1.26" y="4.25" width=".24" height=".24" rx=".05" class="clamp cl2" vector-effect="non-scaling-stroke"/><rect x="1.64" y="4.25" width=".24" height=".24" rx=".05" class="clamp cl3" vector-effect="non-scaling-stroke"/></g><g transform="matrix(25.9808,15.0000,0,-30.0000,-129.90,75.00)"><rect x="2.7" y=".2" width="1.95" height=".62" rx=".1" class="f-night" vector-effect="non-scaling-stroke"/></g><g transform="matrix(25.9808,15.0000,0,30.0000,-129.90,45.00)"><text x="2.85" y=".62" class="tiny inv">DAYS</text><text x="4.12" y=".7" class="nixie d0">00</text><text x="4.12" y=".7" class="nixie d1">01</text><text x="4.12" y=".7" class="nixie d2">02</text><text x="4.12" y=".7" class="nixie d3">03</text><text x="4.12" y=".7" class="nixie d4">04</text><text x="4.12" y=".7" class="nixie d5">05</text><text x="4.12" y=".7" class="nixie d6">06</text><text x="4.12" y=".7" class="nixie d7">07</text></g><polygon class="f-night"  points="46.77,45.00 0.00,72.00 0.00,18.00 46.77,-9.00"/><polygon class="f-paper"  points="-46.77,45.00 0.00,72.00 0.00,18.00 -46.77,-9.00"/><polygon class="f-white"  points="0.00,-36.00 46.77,-9.00 0.00,18.00 -46.77,-9.00"/><g transform="matrix(25.9808,15.0000,0,-30.0000,-46.77,45.00)"><rect x=".28" y=".42" width="1.24" height=".9" rx=".2" class="f-white" vector-effect="non-scaling-stroke"/><circle cx=".64" cy=".95" r=".1" class="dot"/><circle cx="1.16" cy=".95" r=".1" class="dot"/><path class="ink-line" vector-effect="non-scaling-stroke" d="M.72 .66Q.9 .56 1.08 .66"/></g><g class="shadow"><polygon class="f-paper s-dash"  points="118.21,170.25 85.74,189.00 85.74,151.50 118.21,132.75"/><polygon class="f-paper s-dash"  points="53.26,170.25 85.74,189.00 85.74,151.50 53.26,132.75"/><polygon class="f-white s-dash"  points="85.74,114.00 118.21,132.75 85.74,151.50 53.26,132.75"/><g transform="matrix(25.9808,15.0000,0,30.0000,53.26,132.75)"><text x=".625" y=".55" class="tiny mid big">SHADOW</text><text x=".625" y=".9" class="tiny mid big">AI</text></g></g><g class="tag"><path class="ink-line" d="M95.5 138.4L95.5 102.4"/><g transform="matrix(25.9808,15.0000,0,30.0000,95.48,102.38)"><path class="tagf" vector-effect="non-scaling-stroke" d="M0 0H1.55L1.75 .25L1.55 .5H0Z"/><text x=".1" y=".36" class="tagt">FLAGGED</text></g></g><g class="card k0"><polygon class="f-night"  points="67.55,-9.60 0.00,29.40 0.00,25.80 67.55,-13.20"/><polygon class="f-paper"  points="-67.55,-9.60 0.00,29.40 0.00,25.80 -67.55,-13.20"/><polygon class="f-grad"  points="0.00,-52.20 67.55,-13.20 0.00,25.80 -67.55,-13.20"/><g transform="matrix(25.9808,15.0000,-25.9808,15.0000,0.00,-52.20)"><text x=".32" y="2.3" class="lbl">OWNER</text><g transform="translate(2.0,1.62) scale(.42)"><circle cx="0" cy="-.32" r=".26" class="ic"/><path class="ic" d="M-.48 .42C-.42 .05 .42 .05 .48 .42Z"/></g></g></g><g class="card k1"><polygon class="f-night"  points="67.55,-14.10 0.00,24.90 0.00,21.30 67.55,-17.70"/><polygon class="f-paper"  points="-67.55,-14.10 0.00,24.90 0.00,21.30 -67.55,-17.70"/><polygon class="f-grad"  points="0.00,-56.70 67.55,-17.70 0.00,21.30 -67.55,-17.70"/><g transform="matrix(25.9808,15.0000,-25.9808,15.0000,0.00,-56.70)"><text x=".32" y="2.3" class="lbl">ROLE</text><g transform="translate(2.0,1.62) scale(.42)"><rect x="-.38" y="-.48" width=".76" height=".96" rx=".1" class="ic"/><circle cy="-.1" r=".14" class="ic"/><path class="ic" d="M-.2 .26H.2M-.12 -.48V-.6H.12V-.48"/></g></g></g><g class="card k2"><polygon class="f-night"  points="67.55,-18.60 0.00,20.40 0.00,16.80 67.55,-22.20"/><polygon class="f-paper"  points="-67.55,-18.60 0.00,20.40 0.00,16.80 -67.55,-22.20"/><polygon class="f-grad"  points="0.00,-61.20 67.55,-22.20 0.00,16.80 -67.55,-22.20"/><g transform="matrix(25.9808,15.0000,-25.9808,15.0000,0.00,-61.20)"><text x=".32" y="2.3" class="lbl">ACCESS</text><rect x=".95" y="1.62" width="1.45" height=".22" rx=".11" class="f-paper" vector-effect="non-scaling-stroke"/><g transform="translate(.95,1.62)"><rect class="bar" x="0" y="0" width="1.45" height=".22" rx=".11"/></g><path class="ink-line" vector-effect="non-scaling-stroke" d="M1.4 1.5V1.96"/></g></g><g class="card k3"><polygon class="f-night"  points="67.55,-23.10 0.00,15.90 0.00,12.30 67.55,-26.70"/><polygon class="f-paper"  points="-67.55,-23.10 0.00,15.90 0.00,12.30 -67.55,-26.70"/><polygon class="f-grad"  points="0.00,-65.70 67.55,-26.70 0.00,12.30 -67.55,-26.70"/><g transform="matrix(25.9808,15.0000,-25.9808,15.0000,0.00,-65.70)"><text x=".32" y="2.3" class="lbl">END DATE</text><g transform="translate(2.0,1.62) scale(.42)"><rect x="-.44" y="-.36" width=".88" height=".8" rx=".1" class="ic"/><path class="ic" d="M-.44 -.1H.44M-.2 -.5V-.24M.2 -.5V-.24"/><rect x=".08" y=".06" width=".18" height=".16" class="dot"/></g></g></g>
+</svg>
+
+</body></html>

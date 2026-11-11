@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Isometric map board with regional partner towers lighting up one by one and a certified tag</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&display=swap">
+<style>
+html,body{margin:0;background:transparent;height:100%}body{display:flex;align-items:center;justify-content:center}
+svg{width:100%;height:100%;display:block;overflow:visible}
+.f-white,.f-paper,.f-grad,.f-ink{stroke:#141414;stroke-width:1.5;stroke-linejoin:round;stroke-linecap:round;vector-effect:non-scaling-stroke}
+.f-white{fill:#FFFFFF}.f-paper{fill:#F5F3F0}.f-grad{fill:url(#isoG)}.f-ink{fill:#141414}
+.ink-line{fill:none;stroke:#141414;stroke-width:1.2;vector-effect:non-scaling-stroke}
+.ink-thin{fill:none;stroke:#141414;stroke-width:1;opacity:.35;vector-effect:non-scaling-stroke}
+.dash{fill:none;stroke:#141414;stroke-width:1.2;stroke-dasharray:3 4;opacity:.6;vector-effect:non-scaling-stroke}
+.lbl{font-family:"JetBrains Mono",ui-monospace,monospace;font-weight:500;fill:#141414}
+.lamp{fill:#F5F3F0;stroke:#141414;stroke-width:1.2;vector-effect:non-scaling-stroke}
+@media not all{*{animation:none!important}}
+</style></head><body><svg id="s" role="img" aria-label="Isometric map board with regional partner towers lighting up one by one and a certified tag"></svg>
+<script src="iso-kit.js"></script>
+<style>
+.tw{animation:up 10s cubic-bezier(.22,1,.36,1) infinite}
+@keyframes up{0%,2%{transform:translateY(0)}6%{transform:translateY(-12px)}12%,100%{transform:translateY(0)}}
+.lk{animation:lit 10s steps(1,end) infinite}
+@keyframes lit{0%,5%{fill:#F5F3F0}6%,94%{fill:url(#isoG)}95%,100%{fill:#F5F3F0}}
+.gl{opacity:0;animation:gl 10s ease infinite}
+@keyframes gl{0%,3%{opacity:0}7%,18%{opacity:1}26%,100%{opacity:0}}
+.tg{opacity:0;animation:tg 10s ease infinite}
+@keyframes tg{0%,5%{opacity:0;transform:translateY(6px)}9%,18%{opacity:1;transform:none}24%,100%{opacity:0}}
+</style>
+<script>
+var s=new Iso.Scene(document.getElementById('s'),24),P=s.P.bind(s);
+s.box(0,0,0,12,8.4,0.7);
+for(var x=1;x<12;x++)s.line(P(x,0,0.7),P(x,8.4,0.7),'ink-thin');for(var y=1;y<8.4;y++)s.line(P(0,y,0.7),P(12,y,0.7),'ink-thin');
+s.leftText(0.4,8.4,0.48,'AVISTAR · PARTNER DIRECTORY',.22);
+var T=[[1.4,1.2,2.6,'NA'],[5.2,0.9,2.0,'UK'],[8.8,1.5,2.4,'EU'],[2.8,5.0,1.7,'LATAM'],[7.6,5.2,3.0,'APAC']];
+T.slice().sort(function(a,b){return (a[0]+a[1])-(b[0]+b[1]);}).forEach(function(t){var i=T.indexOf(t),d=(i*2)+'s';
+var gl=s.ell(t[0]+0.75,t[1]+0.75,0.7,2.2,'gl',s.root,{fill:'url(#isoGlow)',stroke:'none'});gl.style.animationDelay=d;
+var g=s.g('tw');g.style.animationDelay=d;s.box(t[0],t[1],0.7,1.5,1.5,t[2],{parent:g});
+s.leftText(t[0]+0.2,t[1]+1.5,0.7+t[2]-0.35,t[3],.3,{},g);
+var lp=s.ell(t[0]+0.75,t[1]+0.75,0.7+t[2],0.3,'lamp lk',g);lp.style.animationDelay=d;
+var f=s.flag(P(t[0]+0.75,t[1]+0.75,0.7+t[2]),34,'CERTIFIED · '+t[3],'tg');f.style.animationDelay=d;});
+s.fit(16);
+</script></body></html>
